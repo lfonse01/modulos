@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One-pager · Broxel × Miami Dolphins · Estrategia de adquisición</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#08243A;
+  --ink-2:#3C5A70;
+  --dim:#7A93A6;
+  --rule:#D3DEE6;
+  --rule-2:#E8EEF2;
+  --paper:#FFFFFF;
+  --wash:#F4F8FA;
+  --aqua:#00787F;
+  --aqua-lt:#E0F2F2;
+  --orange:#D8430D;
+  --orange-lt:#FCEDE6;
+  --display:'Barlow Condensed','Arial Narrow',sans-serif;
+  --body:'Barlow','Segoe UI',-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:#DDE5EA;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:13px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding:26px 16px;
+}
+.sheet{
+  max-width:1080px;
+  margin:0 auto;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  box-shadow:0 12px 34px -18px rgba(8,36,58,.4);
+}
+
+/* ===== encabezado ===== */
+.hd{padding:22px 30px 18px;border-bottom:2px solid var(--ink);}
+.hd-top{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:16px;flex-wrap:wrap;margin-bottom:12px;
+}
+.eyebrow{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--aqua);margin:0;
+}
+.eyebrow b{color:var(--ink);font-weight:600;}
+.stamp{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim);
+}
+h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(30px,4.6vw,46px);line-height:.94;
+  text-transform:uppercase;letter-spacing:-.005em;
+  margin:0 0 8px;
+}
+h1 span{color:var(--aqua);}
+.thesis{margin:0;font-size:14.5px;color:var(--ink-2);max-width:760px;}
+.thesis b{color:var(--ink);font-weight:600;}
+
+/* ===== marcador ===== */
+.score{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--rule);}
+.sc{padding:14px 20px;border-right:1px solid var(--rule);}
+.sc:last-child{border-right:none;}
+.sc-n{
+  font-family:var(--display);font-weight:700;font-size:30px;
+  line-height:1;display:block;letter-spacing:-.01em;
+}
+.sc:nth-child(1) .sc-n{color:var(--orange);}
+.sc:nth-child(2) .sc-n{color:var(--aqua);}
+.sc:nth-child(3) .sc-n{color:var(--ink);}
+.sc:nth-child(4) .sc-n{color:var(--ink);}
+.sc-l{
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dim);display:block;
+  margin-top:7px;line-height:1.55;
+}
+
+/* ===== bandas ===== */
+.band{padding:18px 30px;border-bottom:1px solid var(--rule);}
+.band.wash{background:var(--wash);}
+.lab{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--aqua);margin:0 0 10px;
+}
+h2{
+  font-family:var(--display);font-weight:600;font-size:19px;
+  text-transform:uppercase;letter-spacing:.02em;margin:0 0 10px;
+}
+
+/* decisión */
+.dec{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.opt{
+  border:1px solid var(--rule);background:var(--paper);
+  padding:12px 14px;position:relative;
+}
+.opt.on{border-color:var(--aqua);border-width:1.5px;background:var(--aqua-lt);}
+.opt.off{opacity:.62;}
+.opt-h{
+  font-family:var(--display);font-weight:600;font-size:15px;
+  text-transform:uppercase;margin-bottom:4px;
+}
+.opt.on .opt-h{color:var(--aqua);}
+.opt p{margin:0;font-size:12px;color:var(--ink-2);}
+.pill{
+  position:absolute;top:-8px;right:10px;
+  font-family:var(--mono);font-size:8px;letter-spacing:.12em;
+  text-transform:uppercase;padding:2px 7px;
+  background:var(--aqua);color:#fff;
+}
+.opt.off .pill{background:var(--dim);}
+
+/* frentes */
+.fr{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);}
+.fr-c{padding:14px 16px;border-right:1px solid var(--rule);}
+.fr-c:last-child{border-right:none;}
+.fr-n{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;
+  color:var(--dim);display:block;margin-bottom:5px;
+}
+.fr-t{
+  font-family:var(--display);font-weight:600;font-size:16px;
+  text-transform:uppercase;line-height:1.05;margin-bottom:8px;
+}
+.fr-c p{margin:0 0 8px;font-size:12px;color:var(--ink-2);}
+.fr-do{
+  border-top:1px solid var(--rule-2);padding-top:8px;margin-top:auto;
+  font-size:12px;
+}
+.fr-do b{
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--aqua);display:block;margin-bottom:3px;
+}
+
+/* ===== pasos ===== */
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+th{
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--dim);font-weight:500;
+  text-align:left;padding:7px 10px;
+  border-bottom:1.5px solid var(--ink);white-space:nowrap;
+}
+td{padding:8px 10px;border-bottom:1px solid var(--rule-2);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+td.n{
+  font-family:var(--mono);font-size:11px;color:var(--dim);
+  width:26px;padding-right:0;
+}
+td.who,td.when{font-family:var(--mono);font-size:10.5px;white-space:nowrap;}
+td.who{color:var(--aqua);text-transform:uppercase;letter-spacing:.06em;}
+td.when{color:var(--ink-2);}
+td.act b{font-weight:600;}
+td.act span{display:block;color:var(--ink-2);font-size:11.5px;}
+.flag{
+  font-family:var(--mono);font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;padding:2px 6px;white-space:nowrap;
+}
+.flag.b{background:var(--orange-lt);color:var(--orange);}
+.flag.g{background:var(--aqua-lt);color:var(--aqua);}
+tr.blk td{background:#FEF7F4;}
+
+/* ===== pie de banda doble ===== */
+.two{display:grid;grid-template-columns:1.05fr 1fr;}
+.two>div{padding:18px 30px;}
+.two>div:first-child{border-right:1px solid var(--rule);}
+ul{margin:0;padding:0;list-style:none;}
+li{position:relative;padding-left:16px;margin-bottom:7px;font-size:12.5px;color:var(--ink-2);}
+li:last-child{margin-bottom:0;}
+li::before{content:'';position:absolute;left:0;top:.62em;width:6px;height:1px;background:var(--orange);}
+li b{color:var(--ink);font-weight:600;}
+.two>div:last-child li::before{background:var(--aqua);}
+code{font-family:var(--mono);font-size:11px;color:var(--aqua);}
+
+/* ===== meta ===== */
+.goal{
+  padding:16px 30px;background:var(--ink);color:#fff;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.goal-t{font-family:var(--display);font-weight:600;font-size:17px;text-transform:uppercase;letter-spacing:.02em;}
+.goal-t span{color:#5FD3D6;}
+.goal-m{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8FB0BF;text-align:right;}
+
+.foot{
+  padding:12px 30px;font-family:var(--mono);font-size:9px;
+  color:var(--dim);line-height:1.7;border-top:1px solid var(--rule);
+}
+
+/* ===== responsive ===== */
+@media (max-width:860px){
+  .score{grid-template-columns:repeat(2,1fr);}
+  .sc:nth-child(2){border-right:none;}
+  .sc:nth-child(1),.sc:nth-child(2){border-bottom:1px solid var(--rule);}
+  .dec,.fr{grid-template-columns:1fr;}
+  .fr-c{border-right:none;border-bottom:1px solid var(--rule);}
+  .fr-c:last-child{border-bottom:none;}
+  .two{grid-template-columns:1fr;}
+  .two>div:first-child{border-right:none;border-bottom:1px solid var(--rule);}
+  .hd,.band,.two>div,.goal,.foot{padding-left:18px;padding-right:18px;}
+}
+@media (max-width:620px){
+  table,thead,tbody,tr,td{display:block;width:100%;}
+  thead{display:none;}
+  tr{border-bottom:1px solid var(--rule);padding:8px 0;}
+  tr:last-child{border-bottom:none;}
+  td{border:none;padding:2px 0;}
+  td.n{display:inline;}
+  td.who,td.when{display:inline-block;margin-right:12px;}
+}
+
+:focus-visible{outline:2px solid var(--aqua);outline-offset:2px;}
+
+/* ===== una sola hoja al imprimir ===== */
+@page{size:Letter portrait;margin:9mm;}
+@media print{
+  body{background:#fff;padding:0;font-size:8.4pt;line-height:1.32;}
+  .sheet{border:none;box-shadow:none;max-width:none;}
+  .hd{padding:0 0 8px;}
+  h1{font-size:27pt;}
+  .thesis{font-size:9pt;}
+  .band,.two>div{padding:9px 0;}
+  .goal,.foot{padding:9px 0;}
+  .sc{padding:8px 12px;}
+  .sc-n{font-size:19pt;}
+  h2{font-size:12pt;}
+  table{font-size:8pt;}
+  td{padding:4px 8px;}
+  th{padding:4px 8px;}
+  li{margin-bottom:3px;font-size:8pt;}
+  .goal{background:#08243A !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .opt.on,.flag,tr.blk td{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .sheet{page-break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ENCABEZADO -->
+  <header class="hd">
+    <div class="hd-top">
+      <p class="eyebrow">Broxel B2C · Growth &nbsp;/&nbsp; <b>AEP 2025 Miami Dolphins</b></p>
+      <span class="stamp">One-pager ejecutivo · Decisión requerida</span>
+    </div>
+    <h1>De patrocinio a <span>canal de adquisición</span></h1>
+    <p class="thesis">El AEP se administra hoy como hospitalidad y branding. Propuesta: convertirlo en motor de <b>apertura y activación de cuentas B2C en Estados Unidos</b>, con CPA medible y atribución al KPI norte del DOME. <b>Tres decisiones bloquean el arranque.</b></p>
+  </header>
+
+  <!-- CIFRAS -->
+  <div class="score">
+    <div class="sc">
+      <span class="sc-n">$124K</span>
+      <span class="sc-l">USD sin ejercer · vencen al cierre fiscal · no acumulables</span>
+    </div>
+    <div class="sc">
+      <span class="sc-n">$50K</span>
+      <span class="sc-l">USD de crédito digital ya destinado a apertura de cuenta</span>
+    </div>
+    <div class="sc">
+      <span class="sc-n">1.6M</span>
+      <span class="sc-l">Impresiones anuales contratadas · hoy sin medición</span>
+    </div>
+    <div class="sc">
+      <span class="sc-n">1.5–3.5K</span>
+      <span class="sc-l">Cuentas nuevas al año · techo realista del canal</span>
+    </div>
+  </div>
+
+  <!-- DECISIÓN -->
+  <div class="band">
+    <p class="lab">Decisión 1 · A quién le hablamos</p>
+    <div class="dec">
+      <div class="opt on">
+        <span class="pill">Motor</span>
+        <div class="opt-h">A · Adquisición US</div>
+        <p>Fan Dolphins en South Florida → tarjeta Dolphins USA. Es para lo que se compró el patrocinio.</p>
+      </div>
+      <div class="opt on">
+        <span class="pill">Diferenciador</span>
+        <div class="opt-h">B · Corredor remesa</div>
+        <p>Hispano en Florida que envía a México → Dolphins USA + Broxel MX. Es lo único que nos separa de Chime.</p>
+      </div>
+      <div class="opt off">
+        <span class="pill">Descartar</span>
+        <div class="opt-h">C · Awareness en MX</div>
+        <p>El fan mexicano de NFL no puede contratar el producto. Gasto sin conversión posible.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FRENTES -->
+  <div class="band wash">
+    <p class="lab">Los tres frentes</p>
+    <div class="fr">
+      <div class="fr-c">
+        <span class="fr-n">01</span>
+        <div class="fr-t">Créditos → incentivo</div>
+        <p>$104.7K de boletos y $19.5K de merch se gastan hoy en hospitalidad ejecutiva, sin retorno atribuible. El AEP ya permite sorteos.</p>
+        <div class="fr-do"><b>Acción</b>Reasignar $60–70K a pool de premios condicionado a apertura de cuenta + primera transacción. El CPA se vuelve comparable contra paid media.</div>
+      </div>
+      <div class="fr-c">
+        <span class="fr-n">02</span>
+        <div class="fr-t">$50K digital</div>
+        <p>Crédito ya asignado por contrato a generación de leads y apertura de cuenta. La estrategia la definimos nosotros.</p>
+        <div class="fr-do"><b>Acción</b>60% paid geo-cercado a Miami-Dade, Broward y Palm Beach · 25% retargeting de KYC incompleto · 15% click-to-WhatsApp en español. Optimizar a cuenta aprobada, nunca a clic.</div>
+      </div>
+      <div class="fr-c">
+        <span class="fr-n">03</span>
+        <div class="fr-t">Juego de entitlement</div>
+        <p>Único momento del año con ~65,000 personas reunidas y derecho contractual a hablarles.</p>
+        <div class="fr-do"><b>Acción</b>Activación en South Plaza con onboarding asistido y personal bilingüe, giveaway con QR y código SMS de 5 dígitos en el anuncio de PA.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASOS -->
+  <div class="band">
+    <p class="lab">Pasos a seguir</p>
+    <h2>Qué pasa, quién lo hace, cuándo</h2>
+    <table>
+      <thead>
+        <tr><th></th><th>Acción</th><th>Responsable</th><th>Plazo</th><th>Estatus</th></tr>
+      </thead>
+      <tbody>
+        <tr class="blk">
+          <td class="n">01</td>
+          <td class="act"><b>Confirmar el juego de entitlement y el año fiscal vigente</b><span>El AEP mezcla temporada 2024 y 2025, y el flex fund declara dos fechas de corte distintas. Todos los deadlines de creativo cuelgan de esto.</span></td>
+          <td class="who">Growth + Dolphins</td>
+          <td class="when">Semana 1</td>
+          <td><span class="flag b">Bloqueante</span></td>
+        </tr>
+        <tr class="blk">
+          <td class="n">02</td>
+          <td class="act"><b>Aprobar las bases del sorteo</b><span>Reglas oficiales, cláusula de no-compra-necesaria (AMOE) y revisión estado por estado. Sin esto no hay mecanismo para la temporada.</span></td>
+          <td class="who">Legal</td>
+          <td class="when">Semanas 1–3</td>
+          <td><span class="flag b">Bloqueante</span></td>
+        </tr>
+        <tr class="blk">
+          <td class="n">03</td>
+          <td class="act"><b>Conectar eventos server-side del core a Insider</b><span>Las transacciones ocurren en terminal y cajero: el pixel no las ve. Sin esto no se puede medir el KPI norte y solo reportamos clics. Incluye el campo de consentimiento TCPA para usuarios US.</span></td>
+          <td class="who">Data</td>
+          <td class="when">Semanas 1–5</td>
+          <td><span class="flag b">Bloqueante</span></td>
+        </tr>
+        <tr>
+          <td class="n">04</td>
+          <td class="act"><b>Cerrar la tesis A + B y el producto de entrada</b><span>Definir con Producto qué tarjeta se ofrece y con qué propuesta: la del equipo que además manda dinero a casa.</span></td>
+          <td class="who">Growth + Producto</td>
+          <td class="when">Semanas 1–2</td>
+          <td><span class="flag g">Listo p/ decidir</span></td>
+        </tr>
+        <tr>
+          <td class="n">05</td>
+          <td class="act"><b>Landing co-branded bilingüe con KYC progresivo</b><span>Correo y teléfono primero, SSN o ITIN después, con ruteo a JUMIO para quien no tenga SSN. Móvil primero, carga bajo 2.5s.</span></td>
+          <td class="who">UX + Producto</td>
+          <td class="when">Semanas 4–7</td>
+          <td><span class="flag g">En cola</span></td>
+        </tr>
+        <tr>
+          <td class="n">06</td>
+          <td class="act"><b>Armar 4 journeys en Insider</b><span>Onboarding incompleto · Activación · KPI norte atado a game day · Cross-sell de remesa por WhatsApp. Con naming, UTMs y holdout del 10%.</span></td>
+          <td class="who">Growth + CRM</td>
+          <td class="when">Semanas 4–7</td>
+          <td><span class="flag g">En cola</span></td>
+        </tr>
+        <tr>
+          <td class="n">07</td>
+          <td class="act"><b>Entregar el brief del crédito digital a los Dolphins</b><span>Con segmentación, creativos y objetivo de optimización definidos por nosotros. Assets a aprobación con 48h de turnaround.</span></td>
+          <td class="who">Growth + Marketing</td>
+          <td class="when">Semanas 4–6</td>
+          <td><span class="flag g">En cola</span></td>
+        </tr>
+        <tr>
+          <td class="n">08</td>
+          <td class="act"><b>Lanzar y leer el primer reporte de CPA y AR</b><span>Paid en aire, primer sorteo activo, activación presencial. Recalibrar supuestos con desempeño real.</span></td>
+          <td class="who">Growth</td>
+          <td class="when">Semanas 8–12</td>
+          <td><span class="flag g">En cola</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RIESGO + MEDICIÓN -->
+  <div class="two">
+    <div>
+      <p class="lab">Si no pasa nada</p>
+      <ul>
+        <li><b>$124,232 USD se pierden</b> al cierre fiscal. No son acumulables y hoy no generan una sola cuenta.</li>
+        <li><b>1.6M de impresiones seguirán sin atribución.</b> Estamos pagando por volumen sin saber qué produce.</li>
+        <li><b>El único reporte posible es de impresiones</b>, que no es una métrica de negocio y no responde a dirección.</li>
+      </ul>
+    </div>
+    <div>
+      <p class="lab">Cómo se mide</p>
+      <ul>
+        <li><b>Funnel:</b> impresión → sesión → inicio KYC → cuenta aprobada → 1ª transacción → 2ª transacción.</li>
+        <li><b>KPIs:</b> costo por cuenta aprobada, AR, TTF y el KPI norte del DOME (2 transacciones en 30 días).</li>
+        <li><b>Ventana de atribución a 30 días</b>, no los 14 por default de Insider, más holdout del 10% en BigQuery para saber si el patrocinio causó las cuentas o solo se las atribuyó.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- META -->
+  <div class="goal">
+    <div class="goal-t">Meta año 1 · <span>1,500–3,500 cuentas con CPA medible</span></div>
+    <div class="goal-m">Depende de 3 bloqueantes · Semana 1 a 5</div>
+  </div>
+
+  <p class="foot">Fuentes: 2025 Broxel AEP (Miami Dolphins), Matriz de Productos por Razón Social, marco DOME 2.0 · Broxel B2C. Las cifras de CTR, CPC y conversión son supuestos de referencia para dimensionar el canal; se sustituyen por desempeño medido en Insider en cuanto exista. Documento de trabajo · Departamento B2C · Growth.</p>
+
+</div>
+
+</body>
+</html>

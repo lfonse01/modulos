@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOME · Árbol de oportunidad B2C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Montserrat:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F0F4F9; --panel:#FFFFFF; --raised:#EBF1F8; --raised-2:#DFE9F4;
+  --border:#DCE4EF; --navy:#0B2A4E; --navy-3:#1B4E8F;
+  --brand:#2F7DED; --brand-2:#29C2D8; --accent:#1D5FD1;
+  --text:#0F2540; --muted:#4C5D74; --dim:#66788F;
+  --danger:#C4522E; --ok:#1FA971; --warn:#D98A0B;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sans:'Montserrat',-apple-system,'Segoe UI',sans-serif;
+  --display:'Sora','Montserrat',sans-serif;
+  --sh1:0 1px 2px rgba(15,23,42,.07);
+  --sh2:0 12px 30px -12px rgba(15,23,42,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.page{max-width:1180px;margin:0 auto;padding:0 24px 90px}
+
+/* header */
+.hd{background:var(--navy);color:#fff;margin-bottom:26px}
+.hd-in{max-width:1180px;margin:0 auto;padding:22px 24px;display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.hd h1{font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:-.4px}
+.hd .sub{font-size:12px;color:#9FBBDD;margin-top:4px;max-width:520px}
+.kpis{margin-left:auto;display:flex;gap:14px}
+.kpi{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:9px 16px;text-align:center;min-width:92px}
+.kpi b{display:block;font-family:var(--mono);font-size:24px;font-weight:600;color:var(--brand-2);line-height:1.1}
+.kpi span{font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:#8FA9CC}
+
+/* pasos */
+.step{margin-bottom:26px}
+.step-h{display:flex;align-items:baseline;gap:11px;margin-bottom:12px}
+.step-n{font-family:var(--mono);font-size:10px;font-weight:600;color:#fff;background:var(--navy);width:21px;height:21px;border-radius:6px;display:grid;place-items:center;flex:none;align-self:center}
+.step-h h2{font-family:var(--display);font-size:15px;font-weight:600}
+.step-h p{font-size:11.5px;color:var(--dim);flex:1;min-width:0}
+
+/* marcas */
+.brands{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.bcard{border:none;border-radius:14px;padding:13px 14px;color:#fff;cursor:pointer;text-align:left;font-family:var(--sans);position:relative;overflow:hidden;opacity:.42;filter:saturate(.55);transition:opacity .16s,transform .16s,filter .16s}
+.bcard:hover{opacity:.75;transform:translateY(-2px)}
+.bcard.on{opacity:1;filter:none;box-shadow:var(--sh2);transform:translateY(-2px)}
+.bcard.on::after{content:'●';position:absolute;top:10px;right:12px;font-size:9px;color:var(--brand-2)}
+.bcard b{display:block;font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:-.2px}
+.bcard span{font-family:var(--mono);font-size:9px;opacity:.8;letter-spacing:.6px}
+.bcard:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+
+/* productos */
+.prods{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px 18px;box-shadow:var(--sh1)}
+.pgrp{margin-bottom:13px}
+.pgrp:last-of-type{margin-bottom:0}
+.pgrp-t{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--dim);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--border);background:var(--bg);border-radius:999px;font-family:var(--sans);font-size:11.5px;color:var(--muted);cursor:pointer;transition:all .13s}
+.tag:hover{border-color:var(--brand);color:var(--navy)}
+.tag.on{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:600}
+.tag.on::before{content:'✓';font-size:10px;color:var(--brand-2)}
+.tag.off-brand{border-style:dashed;opacity:.72}
+.tag:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.pbtns{display:flex;gap:7px;margin-top:15px;padding-top:13px;border-top:1px solid var(--border);flex-wrap:wrap;align-items:center}
+.mini{padding:6px 13px;border:1px solid var(--border);background:var(--panel);border-radius:8px;font-family:var(--sans);font-size:11px;font-weight:600;color:var(--muted);cursor:pointer}
+.mini:hover{background:var(--raised);color:var(--navy)}
+.mini:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
+.hint{font-size:10.5px;color:var(--dim);margin-left:auto}
+
+/* escalera */
+.ladder{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:20px 22px 6px;box-shadow:var(--sh1);margin-bottom:14px;overflow-x:auto}
+.rail{display:flex;align-items:flex-start;min-width:660px;position:relative}
+.rung{flex:1;text-align:center;position:relative;padding-bottom:16px}
+.rung::before{content:'';position:absolute;top:11px;left:-50%;width:100%;height:2px;background:var(--raised-2)}
+.rung:first-child::before{display:none}
+.rung.done::before{background:var(--ok)}
+.rung.now::before{background:var(--brand)}
+.dot{width:24px;height:24px;border-radius:50%;background:var(--panel);border:2px solid var(--raised-2);margin:0 auto 8px;position:relative;z-index:1;display:grid;place-items:center;font-family:var(--mono);font-size:9.5px;font-weight:600;color:var(--dim)}
+.rung.done .dot{background:var(--ok);border-color:var(--ok);color:#fff}
+.rung.now .dot{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 0 0 5px rgba(47,125,237,.16)}
+.rung small{display:block;font-size:9.5px;line-height:1.3;color:var(--dim);padding:0 3px}
+.rung.now small{color:var(--navy);font-weight:700}
+
+/* nba */
+.nba{border-radius:18px;padding:22px 24px;color:#fff;box-shadow:var(--sh2);margin-bottom:14px;position:relative;overflow:hidden}
+.nba::after{content:'';position:absolute;right:-50px;top:-60px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 68%)}
+.nba .eb{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:1.3px;opacity:.75;margin-bottom:8px;position:relative}
+.nba h3{font-family:var(--display);font-size:24px;font-weight:600;letter-spacing:-.5px;margin-bottom:9px;position:relative}
+.nba p{font-size:12.5px;opacity:.9;max-width:640px;position:relative}
+.nba .m{display:flex;gap:26px;margin-top:16px;flex-wrap:wrap;position:relative}
+.nba .m div{font-size:10px;text-transform:uppercase;letter-spacing:.7px;opacity:.7}
+.nba .m b{display:block;font-family:var(--mono);font-size:12.5px;font-weight:500;margin-top:3px;text-transform:none;letter-spacing:0;opacity:1}
+
+/* ruta */
+.path{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:11px 16px;margin-bottom:26px;font-size:11.5px}
+.path .pl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.9px;color:var(--dim)}
+.pstep{font-family:var(--mono);font-size:10.5px;padding:4px 11px;border-radius:999px;background:var(--raised-2);color:var(--navy)}
+.pstep.last{background:var(--ok);color:#fff}
+.path em{color:var(--dim);font-size:11px}
+.undo{margin-left:auto;padding:4px 11px;border:1px solid var(--border);background:var(--panel);border-radius:7px;font-size:10.5px;font-weight:600;color:var(--muted);cursor:pointer;font-family:var(--sans)}
+.undo:hover{background:var(--raised)}
+
+/* filtros */
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border:1px solid var(--border);background:var(--panel);border-radius:999px;font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--muted);cursor:pointer}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--c);font-style:normal;flex:none}
+.pill b{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.pill.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.pill.on b{color:var(--brand-2)}
+.pill:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* cards de oportunidad */
+.tgrp{margin-bottom:22px}
+.tgrp-h{display:flex;align-items:center;gap:10px;margin-bottom:11px;padding-left:12px;border-left:4px solid var(--c)}
+.tgrp-h h4{font-family:var(--display);font-size:14px;font-weight:600}
+.tgrp-h p{font-size:11px;color:var(--dim);flex:1;min-width:0}
+.tgrp-h b{font-family:var(--mono);font-size:13px;color:var(--c)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:11px}
+.card{background:var(--panel);border:1px solid var(--border);border-top:3px solid var(--c);border-radius:13px;padding:14px 15px;display:flex;flex-direction:column;gap:9px;box-shadow:var(--sh1);transition:transform .13s,box-shadow .13s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.card-t{display:flex;align-items:flex-start;gap:10px}
+.card-t h5{font-size:13px;font-weight:700;color:var(--navy);line-height:1.3;flex:1}
+.ring{width:44px;height:44px;flex:none;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--c);
+      background:conic-gradient(var(--c) calc(var(--p)*1%),var(--raised-2) 0)}
+.ring i{width:34px;height:34px;border-radius:50%;background:var(--panel);display:grid;place-items:center;font-style:normal}
+.card p{font-size:11px;color:var(--muted);line-height:1.45}
+.card .bar{font-family:var(--mono);font-size:9.5px;color:var(--danger);line-height:1.4}
+.card .ft{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:9px;border-top:1px solid var(--raised)}
+.cov{font-family:var(--mono);font-size:9.5px;color:var(--dim);flex:1}
+.add{padding:6px 14px;border:1px solid var(--brand);background:var(--panel);border-radius:8px;font-family:var(--sans);font-size:11px;font-weight:700;color:var(--brand);cursor:pointer}
+.add:hover{background:var(--brand);color:#fff}
+.add:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.warnpill{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:999px;background:#FDF3E0;color:var(--warn);border:1px solid #F3DFB8}
+
+
+/* top por arquetipo */
+.tops{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:22px}
+.top{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:13px 14px;box-shadow:var(--sh1)}
+.top.on{border-color:var(--navy);box-shadow:var(--sh2)}
+.top-h{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.top-h .av{font-size:19px;line-height:1}
+.top-h b{font-family:var(--display);font-size:13px;font-weight:600}
+.top-h span{font-family:var(--mono);font-size:8.5px;color:var(--dim);margin-left:auto}
+.top .hl{font-size:10.5px;color:var(--dim);font-style:italic;line-height:1.35;margin-bottom:9px;min-height:28px}
+.top ol{list-style:none;counter-reset:t}
+.top li{counter-increment:t;display:flex;align-items:center;gap:7px;font-size:11px;padding:3px 0;color:var(--muted)}
+.top li::before{content:counter(t);font-family:var(--mono);font-size:8.5px;color:#fff;background:var(--navy);width:14px;height:14px;border-radius:4px;display:grid;place-items:center;flex:none}
+.top li b{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--brand)}
+
+/* heatmap */
+.heat{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px 18px;box-shadow:var(--sh1);overflow-x:auto}
+.hm{border-collapse:separate;border-spacing:3px;min-width:720px;width:100%}
+.hm th{font-weight:600;font-size:10px;color:var(--muted);padding:0 0 6px;vertical-align:bottom;text-align:center;width:64px}
+.hm th .av{display:block;font-size:17px;margin-bottom:2px}
+.hm th.sel{color:var(--navy)}
+.hm th.sel .av{transform:scale(1.2)}
+.hm th.rowh{text-align:left;width:auto;min-width:210px;padding-right:8px}
+.hm td.rowh{font-size:11px;color:var(--text);text-align:left;padding-right:8px;line-height:1.3}
+.hm tr.catrow td{font-family:var(--mono);font-size:8.5px;text-transform:uppercase;letter-spacing:.9px;color:var(--dim);padding:9px 0 2px}
+.cell{height:26px;border-radius:5px;cursor:pointer;position:relative;font-family:var(--mono);font-size:9.5px;font-weight:600;text-align:center;line-height:26px;transition:transform .1s}
+.cell:hover{transform:scale(1.12);z-index:2;box-shadow:var(--sh2)}
+.cell.sel{outline:2px solid var(--navy);outline-offset:1px}
+.cell.tiene{background:repeating-linear-gradient(45deg,#E3F5EC,#E3F5EC 4px,#D2EFE1 4px,#D2EFE1 8px);color:var(--ok)}
+.cell.red{background:var(--raised);color:var(--dim);opacity:.45}
+.hm-legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:10.5px;color:var(--dim)}
+.ramp{display:flex;gap:2px}
+.ramp i{width:19px;height:11px;border-radius:2px;font-style:normal}
+.detail{background:var(--raised);border-radius:10px;padding:11px 14px;margin-top:12px;font-size:11.5px;color:var(--muted);line-height:1.5;min-height:42px}
+.detail b{color:var(--navy)}
+.detail .num{font-family:var(--mono);color:var(--brand);font-weight:600}
+.sortbtns{display:flex;gap:7px;margin-bottom:12px}
+
+
+
+/* uso real */
+.usowrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.usokpi{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:13px 15px;box-shadow:var(--sh1)}
+.usokpi h6{font-family:var(--mono);font-size:8.5px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin-bottom:5px}
+.usokpi b{display:block;font-family:var(--mono);font-size:22px;font-weight:600;color:var(--navy);line-height:1}
+.usokpi span{font-size:10px;color:var(--muted);display:block;margin-top:3px}
+.realtbl{width:100%;border-collapse:separate;border-spacing:3px;min-width:660px;font-size:11px}
+.realtbl th{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);padding:0 0 6px;text-align:center}
+.realtbl th.rh{text-align:left;min-width:110px}
+.realtbl td{border-radius:6px;text-align:center;padding:7px 4px;line-height:1.25}
+.realtbl td.rh{text-align:left;font-weight:700;color:var(--navy);font-size:11.5px;padding-left:2px}
+.rf{font-family:var(--mono);font-size:13px;font-weight:600;display:block}
+.rt{font-size:9px;opacity:.7}
+.actcell{background:var(--raised)}
+.actpct{font-family:var(--mono);font-size:15px;font-weight:600;display:block}
+.gapbars{display:flex;flex-direction:column;gap:7px;margin-top:14px}
+.gaprow{display:grid;grid-template-columns:210px 1fr 118px;gap:11px;align-items:center;font-size:11.5px}
+.gaprow .gl{color:var(--navy);font-weight:600}
+.gaprow .gl small{display:block;font-family:var(--mono);font-size:9px;color:var(--dim);font-weight:400}
+.gtrack{height:17px;background:var(--raised);border-radius:5px;overflow:hidden}
+.gtrack i{display:block;height:100%;background:linear-gradient(90deg,#C4522E,#E8863F);border-radius:5px}
+.gval{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--danger);text-align:right}
+.gval small{display:block;font-size:9px;color:var(--dim);font-weight:400}
+
+/* metodología */
+.meth{margin-top:14px;border:1px solid var(--border);border-radius:13px;background:var(--bg);overflow:hidden}
+.meth>summary{padding:12px 16px;cursor:pointer;font-family:var(--display);font-size:12.5px;font-weight:600;color:var(--navy);list-style:none;display:flex;align-items:center;gap:9px}
+.meth>summary::-webkit-details-marker{display:none}
+.meth>summary::before{content:'▸';font-size:10px;color:var(--dim);transition:transform .15s}
+.meth[open]>summary::before{transform:rotate(90deg)}
+.meth>summary:hover{background:var(--raised)}
+.meth-b{padding:4px 18px 18px;font-size:11.5px;color:var(--muted);line-height:1.6}
+.formula{font-family:var(--mono);font-size:11.5px;background:var(--navy);color:#fff;padding:11px 15px;border-radius:9px;margin:10px 0 14px;overflow-x:auto;white-space:nowrap}
+.formula b{color:var(--brand-2);font-weight:600}
+.mcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px;margin-bottom:15px}
+.mcol{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.mcol h6{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.9px;color:var(--brand);margin-bottom:5px}
+.mcol b{display:block;font-family:var(--display);font-size:13px;color:var(--navy);margin-bottom:5px}
+.mcol p{font-size:10.5px;line-height:1.5}
+.calc{font-family:var(--mono);font-size:11px;background:var(--panel);border:1px solid var(--border);border-radius:9px;padding:12px 15px;margin:9px 0 14px;line-height:1.75;white-space:pre;overflow-x:auto;color:var(--muted)}
+.calc b{color:var(--navy)}
+.mnote{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:11px}
+.mnote div{border-left:3px solid var(--c);padding-left:11px}
+.mnote h6{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--c);margin-bottom:3px;font-weight:700}
+.mnote p{font-size:10.5px;line-height:1.55}
+
+.foot{margin-top:34px;padding-top:18px;border-top:1px solid var(--border);font-size:10.5px;color:var(--dim);line-height:1.7;max-width:920px}
+.foot b{color:var(--muted)}
+@media (max-width:760px){
+  .page{padding:0 14px 60px} .hd-in{padding:18px 14px}
+  .kpis{margin-left:0;width:100%} .kpi{flex:1;min-width:0}
+  .nba h3{font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hd"><div class="hd-in">
+  <div>
+    <h1>Árbol de oportunidad B2C</h1>
+    <div class="sub">Elige una marca y marca lo que la persona ya tiene. El árbol ordena qué ofrecerle: primero lo que se activa hoy, al final lo que depende de desarrollo.</div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><b id="k1">0</b><span>Tiene</span></div>
+    <div class="kpi"><b id="k2">0</b><span>Ofertas</span></div>
+    <div class="kpi"><b id="k3">0</b><span>Paquetes</span></div>
+  </div>
+</div></header>
+
+<div class="page">
+  <div class="step">
+    <div class="step-h"><span class="step-n">1</span><h2>Marca de origen</h2><p>Define mercado, perfil del segmento y canal propio.</p></div>
+    <div class="brands" id="brands"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><span class="step-n">2</span><h2>Qué tiene hoy</h2><p id="p2sub"></p></div>
+    <div class="prods" id="prods"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><span class="step-n">3</span><h2>Dónde está y qué sigue</h2><p>El peldaño se detecta solo. Más abajo, el abanico completo de lo que existe fuera de su marca.</p></div>
+    <div class="ladder"><div class="rail" id="rail"></div></div>
+    <div class="nba" id="nba"></div>
+    <div class="path" id="path"></div>
+
+    <div class="pills" id="pills"></div>
+    <div id="tiers"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><span class="step-n">4</span><h2>Qué producto le late a quién</h2><p>Atractivo del producto para cada arquetipo, exista o no hoy en su marca. Es el mapa de lo que vale la pena replicar.</p></div>
+    <div class="tops" id="tops"></div>
+    <div class="heat">
+      <div class="sortbtns">
+        <button class="mini" data-sort="cat">Por bloque</button>
+        <button class="mini" data-sort="score">Por atractivo</button>
+      </div>
+      <table class="hm" id="hm"></table>
+      <div class="hm-legend">
+        <span>Atractivo</span>
+        <span class="ramp" id="ramp"></span>
+        <span>0 → 100</span>
+        <span style="margin-left:12px"><span class="cell tiene" style="display:inline-block;width:26px;vertical-align:middle">✓</span> ya lo ofrece esa marca</span>
+        <span><span class="cell red" style="display:inline-block;width:26px;vertical-align:middle">—</span> variante de algo que ya tiene</span>
+      </div>
+      <div class="detail" id="detail">Toca cualquier celda para ver de dónde sale el puntaje.</div>
+
+      <details class="meth">
+        <summary>Metodología · de dónde salen estos números</summary>
+        <div class="meth-b">
+          <p>Cada celda es un <b>atractivo de 0 a 100</b>: un puntaje comparable entre celdas. No es probabilidad de conversión ni pesos.</p>
+          <div class="formula">Atractivo = <b>55</b> × relevancia &nbsp;+&nbsp; <b>30</b> × ajuste de perfil &nbsp;+&nbsp; <b>15</b> × validación de mercado</div>
+
+          <div class="mcols">
+            <div class="mcol"><h6>55 % · Dato del sitio</h6><b>Relevancia</b>
+              <p>A cada producto le asigné los términos que lo delatan. La relevancia es cuántos aparecen en el corpus narrativo de ese arquetipo —pitch, propuesta de valor, JTBD, narrativa, atributos, perfil de usuario y bullets del ecosistema; entre 2,600 y 3,500 caracteres por proyecto. Mide encaje narrativo: qué tanto el material que ya existe habla el idioma de ese producto.</p></div>
+            <div class="mcol"><h6>30 % · Dato del sitio</h6><b>Ajuste de perfil</b>
+              <p>Los perfiles digital y financiero vienen en escala 1 a 5 en la ficha de cada proyecto. La regla depende del tipo: el crédito escala con el perfil financiero, el ahorro también pero con piso más alto, y lo que depende de app escala con el perfil digital. El resto pasa casi completo, porque una transferencia no le pide nada al usuario.</p></div>
+            <div class="mcol"><h6>15 % · Dato del sitio</h6><b>Validación de mercado</b>
+              <p>En cuántas de las 8 marcas ya existe el producto, sobre 8. Si algo ya opera en seis verticales es menos apuesta que algo que existe en una. Pesa poco a propósito: con más peso, el ranking se llenaba de lo genérico y dejaba de distinguir arquetipos.</p></div>
+          </div>
+
+          <p><b>Las dos celdas extremas, hechas a mano.</b></p>
+          <div class="calc"><b>Finabien MX × Remesa $2.99 = 87</b>  · la más alta de la matriz
+  relevancia   6 de 6 términos    0.55 × 1.000  =  55.0
+  ajuste       perfil digital 2   0.30 × 1.000  =  30.0
+  validación   en 1 de 8 marcas   0.15 × 0.125  =   1.9
+                                                 ──────
+                                                     87
+  Su JTBD dice «quiero pagar $2.99 y no los $15 de Western Union».
+  El producto está en su propia ficha, pero vive en la marca hermana de EUA.
+
+<b>Broxel US × Bóveda 10% = 40</b>
+  relevancia   1 de 6 términos    0.55 × 0.167  =   9.2
+  ajuste       perfil fin. 1      0.30 × 0.667  =  20.0
+  validación   en 6 de 8 marcas   0.15 × 0.750  =  11.3
+                                                 ──────
+                                                     40
+  Solo aparece «ahorro»: no hay rendimiento, ni 10%, ni bóveda.
+  Es la contradicción de la ficha — la Bóveda es SOFIPO y no existe en EUA.</div>
+
+          <div class="mnote">
+            <div style="--c:#1FA971"><h6>Qué es dato</h6><p>Los corpus narrativos, los perfiles digital y financiero, y la matriz de 38 × 8. Todo extraído del código fuente de las páginas Capacidades y Proyectos, corte Junio 2026.</p></div>
+            <div style="--c:#D98A0B"><h6>Qué es criterio propio</h6><p>Los términos asignados a cada producto, las reglas de ajuste por tipo y los pesos 55/30/15. Se pueden discutir y cambiar: el modelo es transparente a propósito.</p></div>
+            <div style="--c:#C4522E"><h6>Qué NO dice el número</h6><p>Mide qué tanto el material escrito habla de ese producto para ese usuario, no demanda observada. Un puntaje bajo puede ser un vacío de contenido, no de oportunidad. Y no lleva tamaño de audiencia: una celda de 87 sobre 3,000 personas vale menos que una de 55 sobre 120,000.</p></div>
+          </div>
+
+          <p style="margin-top:14px">Por eso este mapa sirve para decidir <b>qué replicar</b>, y el árbol de arriba para decidir <b>qué activar</b>. Cuando se le pegue el universo real por razón social desde BigQuery, ambos dejan de ser criterio y pasan a ser pesos.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-h"><span class="step-n">5</span><h2>Actividad real · Mayo 2026</h2><p>Uso medido por vertical. Es lo único de este tablero que no es criterio: son transacciones que ya ocurrieron.</p></div>
+    <div class="usowrap" id="usokpis"></div>
+    <div class="heat"><table class="realtbl" id="realtbl"></table>
+      <div class="hm-legend"><span>Frecuencia = operaciones ÷ usuarios activos, en el mes. Debajo, el ticket promedio.</span></div>
+    </div>
+    <div class="heat" style="margin-top:14px">
+      <div class="sortbtns" style="margin-bottom:4px"><b style="font-family:var(--display);font-size:13px;color:var(--navy)">Dinero dormido · producto contratado que no se usa</b></div>
+      <p style="font-size:11px;color:var(--dim);margin-bottom:12px">Brecha entre la frecuencia real y la mediana de las verticales que sí usan ese producto, valorizada con el ticket observado. Es techo de oportunidad mensual, no pronóstico.</p>
+      <div class="gapbars" id="gapbars"></div>
+    </div>
+  </div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+const D = {"verts": [{"id": "broxel-mx", "name": "Broxel MX", "mkt": "MX", "seg_d": 3, "seg_f": 2, "boom": "B2CSOFIPO3.5", "seg_hl": "\"El que quiere hacer rendir su dinero sin ir al banco\"", "seg_jtbd": "\"Quiero manejar mi dinero desde el celular, que me rinda el 10% y tener crédito listo, sin pisar un banco.\"", "app": "App Broxel", "pitchShort": "4 soluciones en un solo lugar: tarjeta en pesos, bóveda al 10%, línea de crédito virtual y cuenta en dólares.", "grad": "linear-gradient(135deg,#002959,#0075FF)", "av": "👨‍💼"}, {"id": "jalisco-mx", "name": "Jalisco MX", "mkt": "MX", "seg_d": 1, "seg_f": 1, "boom": "RegistroTarjeta-JAL", "seg_hl": "\"El ciudadano jalisciense que quiere todo en una tarjeta del estado\"", "seg_jtbd": "\"Uso la misma tarjeta para subirme al camión, recibir mi apoyo del gobierno, pagar mis multas y guardar lo que me sobra al 10%.\"", "app": "App Broxel / Jalisco", "pitchShort": "La tarjeta única del Estado de Jalisco: paga el transporte público, accede a apoyos del gobierno, obtén el Seguro Médico y administra tu dinero, todo desde una sola tarjeta.", "grad": "linear-gradient(135deg,#7C2D12,#EA580C)", "av": "🚌"}, {"id": "finabien-mx", "name": "Finabien MX", "mkt": "MX", "seg_d": 2, "seg_f": 1, "boom": "BIENESTAR", "seg_hl": "\"La familia mexicana que espera la remesa\"", "seg_jtbd": "\"Mi marido manda dinero desde EUA; quiero recibirlo barato sin que se lo lleve el cambio, y que esté seguro ganando algo.\"", "app": "App Finabien", "pitchShort": "El corredor de remesas más eficiente de México: recibe el dinero de tu familiar en EUA a $2.99 USD, hazlo rendir al 10% y protege a tu familia con el seguro de repatriación Anemex.", "grad": "linear-gradient(135deg,#14532D,#16A34A)", "av": "👩‍👧"}, {"id": "betterware-mx", "name": "Betterware MX", "mkt": "MX", "seg_d": 2, "seg_f": 2, "boom": "B2B2C+SOFIPO3.5", "seg_hl": "\"La distribuidora Betterware que quiere profesionalizar su negocio\"", "seg_jtbd": "\"Quiero cobrar a mis clientas sin efectivo, usar mi saldo de despensa para pedir crédito y ganar más invitando más asociadas.\"", "app": "App Broxel (Betterware)", "pitchShort": "La herramienta financiera de la fuerza de ventas Betterware: cobra digitalmente, usa tu saldo de despensa como garantía de crédito y haz crecer tu negocio con referidos.", "grad": "linear-gradient(135deg,#0C4A6E,#0EA5E9)", "av": "🛍️"}, {"id": "taxipay-mx", "name": "TaxiPay MX", "mkt": "MX", "seg_d": 1, "seg_f": 1, "boom": "B2CSOFIPO3.5", "seg_hl": "\"El taxista que quiere dejar el efectivo y recibir su liquidación al instante\"", "seg_jtbd": "\"Quiero que el pasajero pague con tarjeta, que el dinero llegue directo a mi cuenta al momento, y pagar la gasolina y el PASE sin efectivo.\"", "app": "App Broxel Boom", "pitchShort": "La solución que moderniza el taxi en México: terminal Ödeal para cobrar viajes digitalmente, dispersión automática al conductor y cuenta personal para hacer rendir lo ganado.", "grad": "linear-gradient(135deg,#831843,#EC4899)", "av": "🚕"}, {"id": "nono", "name": "Nono", "mkt": "MX", "seg_d": 1, "seg_f": 1, "boom": "NoNoApp · B2CSOFIPO3.5+NoNoApp", "seg_hl": "\"El que quiere su primera tarjeta de crédito, sin apps ni trámites\"", "seg_jtbd": "\"Quiero mi primera tarjeta de crédito que me aprueben rápido, sin anualidad y que pueda manejar directo desde WhatsApp.\"", "app": "nonoAI · WhatsApp", "pitchShort": "\"Tu dinero debe fluir a la velocidad de tu vida.\" Tarjeta de crédito inteligente que manejas 100% desde WhatsApp. Sin anualidad, sin apps adicionales, con Bóveda incluida.", "grad": "linear-gradient(135deg,#0F0F0F,#374151)", "av": "📲"}, {"id": "broxel-us", "name": "Broxel US", "mkt": "US", "seg_d": 3, "seg_f": 1, "boom": "USA3.0", "seg_hl": "\"El migrante que necesita su cuenta en dólares con su INE\"", "seg_jtbd": "\"Necesito una cuenta en dólares para cobrar mi sueldo y mandar dinero a mi familia en México, solo tengo mi INE.\"", "app": "App Broxel USA", "pitchShort": "\"Tu dinero sin fronteras.\" Cuenta en dólares con solo tu INE o matrícula consular: cobra tu sueldo, paga en EUA y manda remesas a México con la función Borderless.", "grad": "linear-gradient(135deg,#1E3A5F,#1D4ED8)", "av": "👷"}, {"id": "finabien-us", "name": "Finabien US", "mkt": "US", "seg_d": 2, "seg_f": 1, "boom": "B-USA3.0", "seg_hl": "\"El que manda dinero a casa al menor costo posible\"", "seg_jtbd": "\"Envío dinero a mi familia en México cada quincena; quiero pagar $2.99 y no los $15 que me cobra Western Union.\"", "app": "App Finabien US · tarjetafinabien.com", "pitchShort": "\"Tu trabajo convertido en bienestar.\" La tarjeta oficial del Gobierno de México en EUA: remesas al costo más bajo del corredor ($2.99 USD), disponible en consulados sin SSN.", "grad": "linear-gradient(135deg,#3B0764,#7C3AED)", "av": "🤝"}], "vn": ["Broxel MX", "Jalisco MX", "Finabien MX", "Betterware MX", "TaxiPay MX", "Nono", "Broxel US", "Finabien US"], "rows": [{"cat": "Instrumento base", "cap": "Tarjeta Prepago Mastercard", "d": [1, 1, 1, 1, 1, 0, 0, 0]}, {"cat": "Instrumento base", "cap": "Tarjeta Prepago Visa", "d": [0, 1, 0, 0, 0, 0, 1, 1]}, {"cat": "Instrumento base", "cap": "Chip Dual Transporte Calypso", "d": [0, 1, 0, 0, 0, 0, 0, 0]}, {"cat": "Instrumento base", "cap": "Tarjeta Crédito Visa (nonocard)", "d": [0, 0, 0, 0, 0, 1, 0, 0]}, {"cat": "Instrumento base", "cap": "Tarjeta Crédito MC WE (nonoblack)", "d": [0, 0, 0, 0, 0, 1, 0, 0]}, {"cat": "Instrumento base", "cap": "Cuenta USD Pathward (FDIC)", "d": [0, 0, 0, 0, 0, 0, 1, 1]}, {"cat": "Ahorro e Inversión", "cap": "Bóveda Vista 10% anual (SOFIPO)", "d": [1, 1, 1, 1, 1, 1, 0, 0]}, {"cat": "Ahorro e Inversión", "cap": "Inversión 360 · 12% · DPF", "d": [1, 1, 1, 1, 1, 0, 0, 0]}, {"cat": "Ahorro e Inversión", "cap": "Cuenta 30K UDIs (digital)", "d": [1, 0, 0, 1, 0, 0, 0, 0]}, {"cat": "Crédito", "cap": "Línea Crédito Virtual (hasta $70K)", "d": [1, 1, 0, 1, 1, 0, 0, 0]}, {"cat": "Crédito", "cap": "Crédito con Garantía Despensa", "d": [0, 0, 0, 1, 0, 0, 0, 0]}, {"cat": "Crédito", "cap": "nonocard · desde $1 MXN", "d": [0, 0, 0, 0, 0, 1, 0, 0]}, {"cat": "Transferencias y Remesas", "cap": "SPEI 24/7", "d": [1, 1, 1, 1, 1, 1, 0, 0]}, {"cat": "Transferencias y Remesas", "cap": "ACH In/Out USA", "d": [0, 0, 0, 0, 0, 0, 1, 1]}, {"cat": "Transferencias y Remesas", "cap": "Cash In MX 28K+ puntos", "d": [1, 1, 1, 1, 1, 1, 0, 0]}, {"cat": "Transferencias y Remesas", "cap": "Cash In USA 100K+ puntos", "d": [0, 0, 0, 0, 0, 0, 1, 1]}, {"cat": "Transferencias y Remesas", "cap": "Dispersión masiva B2B (SetDispersion)", "d": [0, 0, 0, 0, 1, 0, 0, 0]}, {"cat": "Transferencias y Remesas", "cap": "Remesas MX → US", "d": [1, 1, 1, 0, 0, 0, 0, 0]}, {"cat": "Transferencias y Remesas", "cap": "Remesas US → MX ($3.99)", "d": [0, 0, 0, 0, 0, 0, 1, 0]}, {"cat": "Transferencias y Remesas", "cap": "Remesas US → MX ($2.99 · más barato)", "d": [0, 0, 0, 0, 0, 0, 0, 1]}, {"cat": "Cobro Digital", "cap": "Cobra con Link", "d": [1, 1, 1, 1, 1, 0, 0, 0]}, {"cat": "Cobro Digital", "cap": "Cobro con QR", "d": [1, 1, 1, 1, 1, 0, 0, 0]}, {"cat": "Cobro Digital", "cap": "MPOS LOOP (terminal POS)", "d": [0, 0, 0, 1, 0, 0, 0, 0]}, {"cat": "Cobro Digital", "cap": "Terminal POS Ödeal (taxi)", "d": [0, 0, 0, 0, 1, 0, 0, 0]}, {"cat": "Canales", "cap": "App Broxel / Finabien", "d": [1, 1, 1, 1, 1, 0, 1, 1]}, {"cat": "Canales", "cap": "nonoAI WhatsApp (único canal)", "d": [0, 0, 0, 0, 0, 1, 0, 0]}, {"cat": "Canales", "cap": "WhatsApp como canal adicional", "d": [1, 1, 1, 1, 1, 0, 1, 1]}, {"cat": "Canales", "cap": "Borderless (MX + US simultáneo)", "d": [0, 0, 0, 0, 0, 0, 1, 0]}, {"cat": "Canales", "cap": "Portal tarjetafinabien.com", "d": [0, 0, 0, 0, 0, 0, 0, 1]}, {"cat": "Canales", "cap": "Pago servicios / CFE / Tiempo Aire", "d": [1, 1, 1, 1, 1, 1, 0, 0]}, {"cat": "Beneficios Exclusivos", "cap": "Seguros Anemex (repatriación)", "d": [0, 0, 1, 0, 0, 0, 0, 0]}, {"cat": "Beneficios Exclusivos", "cap": "Seguro Médico al Estilo Jalisco", "d": [0, 1, 0, 0, 0, 0, 0, 0]}, {"cat": "Beneficios Exclusivos", "cap": "Apoyos sociales Gobierno Jalisco", "d": [0, 1, 0, 0, 0, 0, 0, 0]}, {"cat": "Beneficios Exclusivos", "cap": "Referenciación · Invita y Gana", "d": [0, 0, 0, 1, 0, 0, 0, 0]}, {"cat": "Beneficios Exclusivos", "cap": "Plan Familiar · menores", "d": [1, 1, 1, 1, 1, 0, 0, 0]}, {"cat": "Beneficios Exclusivos", "cap": "Aportaciones voluntarias IMSS", "d": [0, 0, 1, 0, 0, 0, 0, 0]}, {"cat": "Beneficios Exclusivos", "cap": "Distribución en consulados MX/EUA", "d": [0, 0, 0, 0, 0, 0, 0, 1]}, {"cat": "Beneficios Exclusivos", "cap": "FDIC insured $250K", "d": [0, 0, 0, 0, 0, 0, 1, 1]}], "capmkt": {"Tarjeta Prepago Mastercard": "MX", "Tarjeta Prepago Visa": "MX+US", "Chip Dual Transporte Calypso": "MX", "Tarjeta Crédito Visa (nonocard)": "MX", "Tarjeta Crédito MC WE (nonoblack)": "MX", "Cuenta USD Pathward (FDIC)": "US", "Bóveda Vista 10% anual (SOFIPO)": "MX", "Inversión 360 · 12% · DPF": "MX", "Cuenta 30K UDIs (digital)": "MX", "Línea Crédito Virtual (hasta $70K)": "MX", "Crédito con Garantía Despensa": "MX", "nonocard · desde $1 MXN": "MX", "SPEI 24/7": "MX", "ACH In/Out USA": "US", "Cash In MX 28K+ puntos": "MX", "Cash In USA 100K+ puntos": "US", "Dispersión masiva B2B (SetDispersion)": "MX", "Remesas MX → US": "MX", "Remesas US → MX ($3.99)": "US", "Remesas US → MX ($2.99 · más barato)": "US", "Cobra con Link": "MX", "Cobro con QR": "MX", "MPOS LOOP (terminal POS)": "MX", "Terminal POS Ödeal (taxi)": "MX", "App Broxel / Finabien": "MX+US", "nonoAI WhatsApp (único canal)": "MX", "WhatsApp como canal adicional": "MX+US", "Borderless (MX + US simultáneo)": "US", "Portal tarjetafinabien.com": "US", "Pago servicios / CFE / Tiempo Aire": "MX", "Seguros Anemex (repatriación)": "MX", "Seguro Médico al Estilo Jalisco": "MX", "Apoyos sociales Gobierno Jalisco": "MX", "Referenciación · Invita y Gana": "MX", "Plan Familiar · menores": "MX", "Aportaciones voluntarias IMSS": "MX", "Distribución en consulados MX/EUA": "US", "FDIC insured $250K": "US"}, "road": [{"id": "W01", "n": "Digital Wallet · Google Pay (MX)", "mkt": "MX", "cat": "instrumentos", "desc": "Pago NFC contactless vía Google Pay. Tokenización en PayStudio + STX. Compatible Android y wearables."}, {"id": "W02", "n": "Digital Wallet · Google Pay (US)", "mkt": "US", "cat": "instrumentos", "desc": "Pago NFC en USA vía Google Pay. Tokenización vía Galileo + Pathward. Introducción controlada activa."}, {"id": "W03", "n": "Digital Wallet · Apple Pay (US)", "mkt": "US", "cat": "instrumentos", "desc": "Pago NFC en USA vía Apple Pay. Tokenización vía Galileo + Pathward. Introducción controlada activa junto con Google Pay."}, {"id": "W04", "n": "Digital Wallet · Apple Pay (MX)", "mkt": "MX", "cat": "instrumentos", "desc": "Pago NFC via iPhone y Apple Watch. Tokenización PayStudio + STX. En desarrollo junto con 3DS."}, {"id": "29", "n": "Tarjeta Multidivisas (MXN/USD/EUR/CAD)", "mkt": "MX", "cat": "instrumentos", "desc": "Cuenta multi-divisa con conversión al mejor TC en el momento que el usuario decide. Diferenciador binacional y viajero."}, {"id": "", "n": "Inversión 360", "mkt": "MX", "cat": "ahorro", "desc": "Depósito a plazo fijo a 360 días con 12% de rendimiento anual. Mayor rentabilidad que la Bóveda Vista. Para ahorradores con horizonte de largo plazo."}, {"id": "30", "n": "Cuenta 30K UDIs", "mkt": "MX", "cat": "ahorro", "desc": "Cuenta de ahorro con hasta 30,000 UDIs de depósito mensual (~$266K MXN). Apertura 100% digital. Habilita SPEI y C2C."}, {"id": "31", "n": "Opt-In de Crédito (Activador B2B→B2C)", "mkt": "MX", "cat": "credito", "desc": "Proceso 2 pasos: usuario B2B autoriza consulta de score → recibe oferta personalizada. KPI Plan DOME: >20% conversión. Prerequisito para crédito revolvente, virtual e hipotecario."}, {"id": "08", "n": "Crédito Simple Virtual", "mkt": "MX", "cat": "credito", "desc": "Crédito a plazos fijos con pagos homologados. Desde $1 MXN. Escalable por comportamiento del usuario. No requiere tarjeta física."}, {"id": "09", "n": "Crédito con Garantía Despensa", "mkt": "MX", "cat": "credito", "desc": "Saldo de tarjeta despensa B2B como colateral. Habilita crédito sin historial crediticio tradicional. Puente B2B→B2C exclusivo Betterware MX."}, {"id": "24", "n": "Crédito por Descuento de Nómina", "mkt": "MX", "cat": "credito", "desc": "Descuento automático en dispersión de nómina. Reduce riesgo de cartera. Para empleados de empresas y burocracia estatal con nómina domiciliada."}, {"id": "27", "n": "Hipotecario y Crédito de Largo Plazo", "mkt": "MX", "cat": "credito", "desc": "Crédito hipotecario aprovechando historial crediticio construido dentro del ecosistema. Requiere aliado hipotecario."}, {"id": "80", "n": "Cash Out TAPI · Retiro en Comercios", "mkt": "MX", "cat": "transferencias", "desc": "Retiro de efectivo en Circle K, farmacias y autoservicios mediante código de barras generado en app. Sin cajero ATM."}, {"id": "112", "n": "Direct Deposit USA (Nómina Directa)", "mkt": "US", "cat": "transferencias", "desc": "Nómina directamente en tarjeta Broxel USA. El empleado registra Routing + Account Number con su empleador. Gancho de retención más potente en US."}, {"id": "32", "n": "Nómina Broxel (Domiciliación MX)", "mkt": "MX", "cat": "transferencias", "desc": "Sueldo directo a cuenta Broxel. Habilita crédito por nómina. Construye historial de ingresos. End game MX con Cuenta Ilimitada."}, {"id": "34a", "n": "MoneyGram · Cash In (50% menos costo)", "mkt": "MX+US", "cat": "transferencias", "desc": "Red de puntos de carga de efectivo más amplia y económica — 50% menos costo que la infraestructura actual. Palanca para reducir la fricción del primer depósito de usuarios no bancarizados."}, {"id": "34b", "n": "MoneyGram · Remesas Multi-Destino", "mkt": "MX+US", "cat": "transferencias", "desc": "Envío de remesas a múltiples países — no solo el corredor MX-US. Amplía el ARPU y el alcance de cada usuario activo en EUA y MX."}, {"id": "34c", "n": "Cash In en Cheque", "mkt": "US", "cat": "transferencias", "desc": "Escaneo de cheques desde la app — el cheque se fotografía y se deposita directamente en la cuenta USD del usuario. Disponible solo para Broxel US / Finabien US."}, {"id": "28", "n": "FX Avanzado · Cross-Border", "mkt": "MX+US", "cat": "transferencias", "desc": "Pesos o dólares según convenga, en el momento exacto. Clave para ARPU US: spread FX + comisión + compras. Complementa Multidivisas."}, {"id": "22", "n": "Tap to Pay · NFC Smartphone", "mkt": "MX", "cat": "cobro", "desc": "Cualquier smartphone se convierte en terminal de cobro NFC. Sin costo de hardware. Depende de avance 3DS y tokenización PayStudio."}, {"id": "23", "n": "Asistente IA Educación Finabien", "mkt": "MX+US", "cat": "canales", "desc": "Análisis de gastos, educación financiera, recomendaciones personalizadas y operaciones por voz. Evolución de Nono.AI."}, {"id": "25", "n": "Micro-seguros Embebidos", "mkt": "MX", "cat": "beneficios", "desc": "Seguros viales, médicos y del hogar desde $20 MXN/mes. Ofrecidos en onboarding o primer depósito. Sin licencia propia — acuerdo de distribución."}, {"id": "33", "n": "AFORE Banorte (USA)", "mkt": "US", "cat": "beneficios", "desc": "Ahorro para retiro. Ancla al usuario por años. Multiplicador de LTV significativo para US — el usuario se queda por el ahorro."}, {"id": "27", "n": "Red de Descuentos y Beneficios", "mkt": "MX+US", "cat": "beneficios", "desc": "Acceso a red de descuentos y beneficios exclusivos a través de un proveedor especializado. Complementa las Promociones & Descuentos actuales con cobertura nacional e internacional."}, {"id": "26", "n": "Crypto e Inversiones (CETES/ETFs/Bolsa)", "mkt": "MX+US", "cat": "beneficios", "desc": "CETES, ETFs de índices globales y acciones fraccionadas desde $10 MXN. Integrado en la misma app. Gap crítico vs Nu, Stori, GBM."}], "booms": [{"code": "B2CSOFIPO3.5", "brand": "Broxel MX", "mkt": "MX", "desc": "Apertura B2C Broxel: SAPI, SOFIPO y Transfer en México."}, {"code": "BIENESTAR", "brand": "Finabien MX", "mkt": "MX", "desc": "Apertura B2C Finabien: SAPI, SOFIPO y Transfer en México."}, {"code": "USA3.0", "brand": "Broxel US", "mkt": "US", "desc": "Apertura cuenta Broxel y Dolphins US."}, {"code": "B-USA3.0", "brand": "Finabien US", "mkt": "US", "desc": "Apertura cuenta Finabien US."}, {"code": "B2CSOFIPO3.5+USA3.0", "brand": "Upgrade Broxel MX → US", "mkt": "MX+US", "desc": "Upgrade de cuenta Broxel México a USA."}, {"code": "USA+SOFIPO3", "brand": "Upgrade Broxel US → MX", "mkt": "MX+US", "desc": "Upgrade de cuenta Broxel USA a México."}, {"code": "BIENESTAR+B-USA3.0", "brand": "Upgrade Finabien MX → US", "mkt": "MX+US", "desc": "Upgrade de cuenta Finabien México a USA."}, {"code": "B-USA2.0+BIENESTAR", "brand": "Upgrade Finabien US → MX", "mkt": "MX+US", "desc": "Upgrade de cuenta Finabien USA a México."}, {"code": "B2B2C+SOFIPO3.5", "brand": "Upgrade Broxel B2B → B2C", "mkt": "MX", "desc": "Upgrade de usuarios Broxel B2B a clientes B2C."}, {"code": "B2B+Bienestar", "brand": "Upgrade Finabien B2B → B2C", "mkt": "MX", "desc": "Upgrade de usuarios Finabien B2B a clientes B2C."}, {"code": "FAMILY", "brand": "Broxel Family", "mkt": "MX", "desc": "Registro de cuenta Familiar (Plan Familiar para menores)."}, {"code": "B2CSOFIPO3.5+NoNoApp", "brand": "Broxel + Crédito Nono", "mkt": "MX", "desc": "Clientes B2C que solicitan Nono Card (SAPI) con SOFIPO."}, {"code": "CreditoRevolvente", "brand": "Línea de Crédito Virtual", "mkt": "MX", "desc": "Solicitud de Línea de Crédito Virtual (revolvente)."}, {"code": "NoNoApp", "brand": "Nono Card standalone", "mkt": "MX", "desc": "Solicitud solo crédito Nono sin SOFIPO."}, {"code": "RegistroTarjeta-JAL", "brand": "Jalisco", "mkt": "MX", "desc": "Registro B2C flujo Jalisco (chip dual transporte)."}], "attract": {"Tarjeta Prepago Mastercard": {"cat": "Instrumento base", "cov": 5, "cells": [{"s": 76, "r": 67, "f": 100, "tiene": true, "red": false}, {"s": 0, "r": 50, "f": 75, "tiene": true, "red": true}, {"s": 76, "r": 67, "f": 100, "tiene": true, "red": false}, {"s": 85, "r": 83, "f": 100, "tiene": true, "red": false}, {"s": 69, "r": 67, "f": 75, "tiene": true, "red": false}, {"s": 59, "r": 50, "f": 75, "tiene": false, "red": false}, {"s": 0, "r": 67, "f": 100, "tiene": false, "red": true}, {"s": 0, "r": 83, "f": 100, "tiene": false, "red": true}]}, "Tarjeta Prepago Visa": {"cat": "Instrumento base", "cov": 3, "cells": [{"s": 0, "r": 60, "f": 100, "tiene": false, "red": true}, {"s": 0, "r": 60, "f": 75, "tiene": true, "red": true}, {"s": 0, "r": 60, "f": 100, "tiene": false, "red": true}, {"s": 0, "r": 60, "f": 100, "tiene": false, "red": true}, {"s": 0, "r": 40, "f": 75, "tiene": false, "red": true}, {"s": 61, "r": 60, "f": 75, "tiene": false, "red": false}, {"s": 80, "r": 80, "f": 100, "tiene": true, "red": false}, {"s": 91, "r": 100, "f": 100, "tiene": true, "red": false}]}, "Chip Dual Transporte Calypso": {"cat": "Instrumento base", "cov": 1, "cells": [{"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 70, "r": 83, "f": 75, "tiene": true, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 34, "r": 17, "f": 75, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}]}, "Tarjeta Crédito Visa (nonocard)": {"cat": "Instrumento base", "cov": 1, "cells": [{"s": 54, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 54, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 0, "r": 100, "f": 50, "tiene": true, "red": true}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}]}, "Tarjeta Crédito MC WE (nonoblack)": {"cat": "Instrumento base", "cov": 1, "cells": [{"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 17, "r": 0, "f": 50, "tiene": false, "red": false}, {"s": 17, "r": 0, "f": 50, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 17, "r": 0, "f": 50, "tiene": false, "red": false}, {"s": 0, "r": 75, "f": 50, "tiene": true, "red": true}, {"s": 17, "r": 0, "f": 50, "tiene": false, "red": false}, {"s": 17, "r": 0, "f": 50, "tiene": false, "red": false}]}, "Cuenta USD Pathward (FDIC)": {"cat": "Instrumento base", "cov": 2, "cells": [{"s": 52, "r": 33, "f": 100, "tiene": false, "red": false}, {"s": 26, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 43, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 34, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 26, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 26, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 89, "r": 100, "f": 100, "tiene": true, "red": false}, {"s": 70, "r": 67, "f": 100, "tiene": true, "red": false}]}, "Bóveda Vista 10% anual (SOFIPO)": {"cat": "Ahorro e Inversión", "cov": 6, "cells": [{"s": 87, "r": 83, "f": 100, "tiene": true, "red": false}, {"s": 77, "r": 83, "f": 67, "tiene": true, "red": false}, {"s": 68, "r": 67, "f": 67, "tiene": true, "red": false}, {"s": 78, "r": 67, "f": 100, "tiene": true, "red": false}, {"s": 68, "r": 67, "f": 67, "tiene": true, "red": false}, {"s": 68, "r": 67, "f": 67, "tiene": true, "red": false}, {"s": 40, "r": 17, "f": 67, "tiene": false, "red": false}, {"s": 31, "r": 0, "f": 67, "tiene": false, "red": false}]}, "Inversión 360 · 12% · DPF": {"cat": "Ahorro e Inversión", "cov": 5, "cells": [{"s": 67, "r": 50, "f": 100, "tiene": true, "red": false}, {"s": 57, "r": 50, "f": 67, "tiene": true, "red": false}, {"s": 57, "r": 50, "f": 67, "tiene": true, "red": false}, {"s": 76, "r": 67, "f": 100, "tiene": true, "red": false}, {"s": 48, "r": 33, "f": 67, "tiene": true, "red": false}, {"s": 57, "r": 50, "f": 67, "tiene": false, "red": false}, {"s": 48, "r": 33, "f": 67, "tiene": false, "red": false}, {"s": 29, "r": 0, "f": 67, "tiene": false, "red": false}]}, "Cuenta 30K UDIs (digital)": {"cat": "Ahorro e Inversión", "cov": 2, "cells": [{"s": 45, "r": 20, "f": 100, "tiene": true, "red": false}, {"s": 46, "r": 40, "f": 67, "tiene": false, "red": false}, {"s": 35, "r": 20, "f": 67, "tiene": false, "red": false}, {"s": 45, "r": 20, "f": 100, "tiene": true, "red": false}, {"s": 46, "r": 40, "f": 67, "tiene": false, "red": false}, {"s": 35, "r": 20, "f": 67, "tiene": false, "red": false}, {"s": 46, "r": 40, "f": 67, "tiene": false, "red": false}, {"s": 46, "r": 40, "f": 67, "tiene": false, "red": false}]}, "Línea Crédito Virtual (hasta $70K)": {"cat": "Crédito", "cov": 4, "cells": [{"s": 82, "r": 80, "f": 100, "tiene": true, "red": false}, {"s": 44, "r": 40, "f": 50, "tiene": true, "red": false}, {"s": 34, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 70, "r": 60, "f": 100, "tiene": true, "red": false}, {"s": 44, "r": 40, "f": 50, "tiene": true, "red": false}, {"s": 34, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 34, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 34, "r": 20, "f": 50, "tiene": false, "red": false}]}, "Crédito con Garantía Despensa": {"cat": "Crédito", "cov": 1, "cells": [{"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 17, "r": 0, "f": 50, "tiene": false, "red": false}, {"s": 17, "r": 0, "f": 50, "tiene": false, "red": false}, {"s": 87, "r": 100, "f": 100, "tiene": true, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 17, "r": 0, "f": 50, "tiene": false, "red": false}, {"s": 17, "r": 0, "f": 50, "tiene": false, "red": false}]}, "nonocard · desde $1 MXN": {"cat": "Crédito", "cov": 1, "cells": [{"s": 54, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 54, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 39, "r": 40, "f": 50, "tiene": false, "red": false}, {"s": 72, "r": 100, "f": 50, "tiene": true, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}, {"s": 28, "r": 20, "f": 50, "tiene": false, "red": false}]}, "SPEI 24/7": {"cat": "Transferencias y Remesas", "cov": 6, "cells": [{"s": 74, "r": 60, "f": 100, "tiene": true, "red": false}, {"s": 56, "r": 40, "f": 75, "tiene": true, "red": false}, {"s": 85, "r": 80, "f": 100, "tiene": true, "red": false}, {"s": 63, "r": 40, "f": 100, "tiene": true, "red": false}, {"s": 56, "r": 40, "f": 75, "tiene": true, "red": false}, {"s": 56, "r": 40, "f": 75, "tiene": true, "red": false}, {"s": 63, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 52, "r": 20, "f": 100, "tiene": false, "red": false}]}, "ACH In/Out USA": {"cat": "Transferencias y Remesas", "cov": 2, "cells": [{"s": 34, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 26, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 34, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 34, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 26, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 26, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 56, "r": 40, "f": 100, "tiene": true, "red": false}, {"s": 45, "r": 20, "f": 100, "tiene": true, "red": false}]}, "Cash In MX 28K+ puntos": {"cat": "Transferencias y Remesas", "cov": 6, "cells": [{"s": 60, "r": 33, "f": 100, "tiene": true, "red": false}, {"s": 61, "r": 50, "f": 75, "tiene": true, "red": false}, {"s": 60, "r": 33, "f": 100, "tiene": true, "red": false}, {"s": 60, "r": 33, "f": 100, "tiene": true, "red": false}, {"s": 52, "r": 33, "f": 75, "tiene": true, "red": false}, {"s": 43, "r": 17, "f": 75, "tiene": true, "red": false}, {"s": 69, "r": 50, "f": 100, "tiene": false, "red": false}, {"s": 69, "r": 50, "f": 100, "tiene": false, "red": false}]}, "Cash In USA 100K+ puntos": {"cat": "Transferencias y Remesas", "cov": 2, "cells": [{"s": 45, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 59, "r": 60, "f": 75, "tiene": false, "red": false}, {"s": 56, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 56, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 48, "r": 40, "f": 75, "tiene": false, "red": false}, {"s": 37, "r": 20, "f": 75, "tiene": false, "red": false}, {"s": 67, "r": 60, "f": 100, "tiene": true, "red": false}, {"s": 67, "r": 60, "f": 100, "tiene": true, "red": false}]}, "Dispersión masiva B2B (SetDispersion)": {"cat": "Transferencias y Remesas", "cov": 1, "cells": [{"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 34, "r": 17, "f": 75, "tiene": false, "red": false}, {"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 79, "r": 100, "f": 75, "tiene": true, "red": false}, {"s": 34, "r": 17, "f": 75, "tiene": false, "red": false}, {"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}]}, "Remesas MX → US": {"cat": "Transferencias y Remesas", "cov": 3, "cells": [{"s": 69, "r": 60, "f": 100, "tiene": true, "red": false}, {"s": 83, "r": 100, "f": 75, "tiene": true, "red": false}, {"s": 69, "r": 60, "f": 100, "tiene": true, "red": false}, {"s": 80, "r": 80, "f": 100, "tiene": false, "red": false}, {"s": 39, "r": 20, "f": 75, "tiene": false, "red": false}, {"s": 28, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 69, "r": 60, "f": 100, "tiene": false, "red": false}, {"s": 69, "r": 60, "f": 100, "tiene": false, "red": false}]}, "Remesas US → MX ($3.99)": {"cat": "Transferencias y Remesas", "cov": 1, "cells": [{"s": 54, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 57, "r": 60, "f": 75, "tiene": false, "red": false}, {"s": 65, "r": 60, "f": 100, "tiene": false, "red": false}, {"s": 54, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 46, "r": 40, "f": 75, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 76, "r": 80, "f": 100, "tiene": true, "red": false}, {"s": 0, "r": 80, "f": 100, "tiene": false, "red": true}]}, "Remesas US → MX ($2.99 · más barato)": {"cat": "Transferencias y Remesas", "cov": 1, "cells": [{"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 52, "r": 50, "f": 75, "tiene": false, "red": false}, {"s": 87, "r": 100, "f": 100, "tiene": false, "red": false}, {"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 34, "r": 17, "f": 75, "tiene": false, "red": false}, {"s": 34, "r": 17, "f": 75, "tiene": false, "red": false}, {"s": 0, "r": 33, "f": 100, "tiene": false, "red": true}, {"s": 87, "r": 100, "f": 100, "tiene": true, "red": false}]}, "Cobra con Link": {"cat": "Cobro Digital", "cov": 5, "cells": [{"s": 39, "r": 0, "f": 100, "tiene": true, "red": false}, {"s": 19, "r": 0, "f": 33, "tiene": true, "red": false}, {"s": 29, "r": 0, "f": 67, "tiene": true, "red": false}, {"s": 75, "r": 83, "f": 67, "tiene": true, "red": false}, {"s": 38, "r": 33, "f": 33, "tiene": true, "red": false}, {"s": 19, "r": 0, "f": 33, "tiene": false, "red": false}, {"s": 49, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 29, "r": 0, "f": 67, "tiene": false, "red": false}]}, "Cobro con QR": {"cat": "Cobro Digital", "cov": 5, "cells": [{"s": 39, "r": 0, "f": 100, "tiene": true, "red": false}, {"s": 30, "r": 20, "f": 33, "tiene": true, "red": false}, {"s": 29, "r": 0, "f": 67, "tiene": true, "red": false}, {"s": 51, "r": 40, "f": 67, "tiene": true, "red": false}, {"s": 30, "r": 20, "f": 33, "tiene": true, "red": false}, {"s": 19, "r": 0, "f": 33, "tiene": false, "red": false}, {"s": 50, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 40, "r": 20, "f": 67, "tiene": false, "red": false}]}, "MPOS LOOP (terminal POS)": {"cat": "Cobro Digital", "cov": 1, "cells": [{"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 78, "r": 83, "f": 100, "tiene": true, "red": false}, {"s": 43, "r": 33, "f": 75, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}]}, "Terminal POS Ödeal (taxi)": {"cat": "Cobro Digital", "cov": 1, "cells": [{"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 34, "r": 17, "f": 75, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 79, "r": 100, "f": 75, "tiene": true, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}, {"s": 41, "r": 17, "f": 100, "tiene": false, "red": false}]}, "Borderless (MX + US simultáneo)": {"cat": "Canales", "cov": 1, "cells": [{"s": 43, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 12, "r": 0, "f": 33, "tiene": false, "red": false}, {"s": 22, "r": 0, "f": 67, "tiene": false, "red": false}, {"s": 22, "r": 0, "f": 67, "tiene": false, "red": false}, {"s": 12, "r": 0, "f": 33, "tiene": false, "red": false}, {"s": 12, "r": 0, "f": 33, "tiene": false, "red": false}, {"s": 87, "r": 100, "f": 100, "tiene": true, "red": false}, {"s": 44, "r": 40, "f": 67, "tiene": false, "red": false}]}, "Pago servicios / CFE / Tiempo Aire": {"cat": "Canales", "cov": 6, "cells": [{"s": 69, "r": 50, "f": 100, "tiene": true, "red": false}, {"s": 70, "r": 67, "f": 75, "tiene": true, "red": false}, {"s": 69, "r": 50, "f": 100, "tiene": true, "red": false}, {"s": 69, "r": 50, "f": 100, "tiene": true, "red": false}, {"s": 61, "r": 50, "f": 75, "tiene": true, "red": false}, {"s": 61, "r": 50, "f": 75, "tiene": true, "red": false}, {"s": 60, "r": 33, "f": 100, "tiene": false, "red": false}, {"s": 69, "r": 50, "f": 100, "tiene": false, "red": false}]}, "Seguros Anemex (repatriación)": {"cat": "Beneficios Exclusivos", "cov": 1, "cells": [{"s": 43, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 35, "r": 20, "f": 75, "tiene": false, "red": false}, {"s": 76, "r": 80, "f": 100, "tiene": true, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 54, "r": 40, "f": 100, "tiene": false, "red": false}, {"s": 54, "r": 40, "f": 100, "tiene": false, "red": false}]}, "Seguro Médico al Estilo Jalisco": {"cat": "Beneficios Exclusivos", "cov": 1, "cells": [{"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 79, "r": 100, "f": 75, "tiene": true, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}]}, "Apoyos sociales Gobierno Jalisco": {"cat": "Beneficios Exclusivos", "cov": 1, "cells": [{"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 79, "r": 100, "f": 75, "tiene": true, "red": false}, {"s": 43, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 43, "r": 20, "f": 100, "tiene": false, "red": false}]}, "Referenciación · Invita y Gana": {"cat": "Beneficios Exclusivos", "cov": 1, "cells": [{"s": 43, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 35, "r": 20, "f": 75, "tiene": false, "red": false}, {"s": 43, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 87, "r": 100, "f": 100, "tiene": true, "red": false}, {"s": 35, "r": 20, "f": 75, "tiene": false, "red": false}, {"s": 35, "r": 20, "f": 75, "tiene": false, "red": false}, {"s": 43, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 43, "r": 20, "f": 100, "tiene": false, "red": false}]}, "Plan Familiar · menores": {"cat": "Beneficios Exclusivos", "cov": 5, "cells": [{"s": 39, "r": 0, "f": 100, "tiene": true, "red": false}, {"s": 43, "r": 20, "f": 75, "tiene": true, "red": false}, {"s": 61, "r": 40, "f": 100, "tiene": true, "red": false}, {"s": 39, "r": 0, "f": 100, "tiene": true, "red": false}, {"s": 32, "r": 0, "f": 75, "tiene": true, "red": false}, {"s": 32, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 50, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 50, "r": 20, "f": 100, "tiene": false, "red": false}]}, "Aportaciones voluntarias IMSS": {"cat": "Beneficios Exclusivos", "cov": 1, "cells": [{"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 38, "r": 25, "f": 75, "tiene": false, "red": false}, {"s": 73, "r": 75, "f": 100, "tiene": true, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}]}, "Distribución en consulados MX/EUA": {"cat": "Beneficios Exclusivos", "cov": 1, "cells": [{"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 46, "r": 25, "f": 100, "tiene": false, "red": false}, {"s": 32, "r": 0, "f": 100, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 24, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 46, "r": 25, "f": 100, "tiene": false, "red": false}, {"s": 87, "r": 100, "f": 100, "tiene": true, "red": false}]}, "FDIC insured $250K": {"cat": "Beneficios Exclusivos", "cov": 2, "cells": [{"s": 45, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 37, "r": 20, "f": 75, "tiene": false, "red": false}, {"s": 45, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 45, "r": 20, "f": 100, "tiene": false, "red": false}, {"s": 37, "r": 20, "f": 75, "tiene": false, "red": false}, {"s": 26, "r": 0, "f": 75, "tiene": false, "red": false}, {"s": 89, "r": 100, "f": 100, "tiene": true, "red": false}, {"s": 67, "r": 60, "f": 100, "tiene": true, "red": false}]}}, "act": {"Broxel MX": {"users": 488569, "active": 19051, "pct": 3.9, "vol": 87738784, "volact": 4605, "gapv": 43418822, "gapf": 165201, "prods": {"POS": {"nd": false, "c": 35666, "v": 13684862, "freq": 1.872, "ticket": 384, "meta": 1.87, "gapv": 0, "gapf": 0}, "ATM": {"nd": false, "c": 2424, "v": 4826628, "freq": 0.127, "ticket": 1991, "meta": 0.13, "gapv": 0, "gapf": 0}, "C2C": {"nd": false, "c": 21391, "v": 36339880, "freq": 1.123, "ticket": 1699, "meta": 1.12, "gapv": 41386, "gapf": 0}, "Servicios": {"nd": false, "c": 129, "v": 90531, "freq": 0.007, "ticket": 702, "meta": 1.58, "gapv": 21060077, "gapf": 90027}, "Tiempo Aire": {"nd": false, "c": 1636, "v": 100744, "freq": 0.086, "ticket": 62, "meta": 0.12, "gapv": 43496, "gapf": 0}, "Remesas": {"nd": false, "c": 34, "v": 501845, "freq": 0.002, "ticket": 14760, "meta": 0, "gapv": 0, "gapf": 0}, "SPEI Out": {"nd": false, "c": 13582, "v": 32194294, "freq": 0.713, "ticket": 2370, "meta": 1.21, "gapv": 22273863, "gapf": 75174}}}, "Jalisco MX": {"users": 69576, "active": 418, "pct": 0.6, "vol": 1258997, "volact": 3012, "gapv": 516105, "gapf": 2004, "prods": {"POS": {"nd": false, "c": 843, "v": 86054, "freq": 2.017, "ticket": 102, "meta": 1.87, "gapv": 0, "gapf": 0}, "ATM": {"nd": false, "c": 27, "v": 38212, "freq": 0.065, "ticket": 1415, "meta": 0.13, "gapv": 53441, "gapf": 26}, "C2C": {"nd": false, "c": 640, "v": 231364, "freq": 1.531, "ticket": 362, "meta": 1.12, "gapv": 0, "gapf": 0}, "Servicios": {"nd": false, "c": 2, "v": 683, "freq": 0.005, "ticket": 342, "meta": 1.58, "gapv": 462664, "gapf": 1978}, "Tiempo Aire": {"nd": false, "c": 193, "v": 13246, "freq": 0.462, "ticket": 69, "meta": 0.12, "gapv": 0, "gapf": 0}, "Remesas": {"nd": false, "c": 0, "v": 0, "freq": 0.0, "ticket": 0, "meta": 0, "gapv": 0, "gapf": 0}, "SPEI Out": {"nd": false, "c": 594, "v": 889438, "freq": 1.421, "ticket": 1497, "meta": 1.21, "gapv": 0, "gapf": 0}}}, "Finabien MX": {"users": 343078, "active": 21135, "pct": 6.2, "vol": 230857803, "volact": 10923, "gapv": 39327533, "gapf": 135161, "prods": {"POS": {"nd": false, "c": 39381, "v": 14431504, "freq": 1.863, "ticket": 366, "meta": 1.87, "gapv": 68354, "gapf": 0}, "ATM": {"nd": false, "c": 16853, "v": 34394706, "freq": 0.797, "ticket": 2041, "meta": 0.13, "gapv": 0, "gapf": 0}, "C2C": {"nd": false, "c": 23758, "v": 95441433, "freq": 1.124, "ticket": 4017, "meta": 1.12, "gapv": 0, "gapf": 0}, "Servicios": {"nd": false, "c": 492, "v": 327590, "freq": 0.023, "ticket": 666, "meta": 1.58, "gapv": 21934466, "gapf": 98829}, "Tiempo Aire": {"nd": false, "c": 5158, "v": 349019, "freq": 0.244, "ticket": 68, "meta": 0.12, "gapv": 0, "gapf": 0}, "Remesas": {"nd": false, "c": 664, "v": 5990140, "freq": 0.031, "ticket": 9021, "meta": 0, "gapv": 0, "gapf": 0}, "SPEI Out": {"nd": false, "c": 20951, "v": 79923411, "freq": 0.991, "ticket": 3815, "meta": 1.21, "gapv": 17324713, "gapf": 36332}}}, "Betterware MX": {"users": 853, "active": 122, "pct": 14.3, "vol": 1850671, "volact": 15169, "gapv": 40361, "gapf": 10, "prods": {"POS": {"nd": false, "c": 173, "v": 65345, "freq": 1.418, "ticket": 378, "meta": 1.87, "gapv": 20926, "gapf": 0}, "ATM": {"nd": false, "c": 6, "v": 13120, "freq": 0.049, "ticket": 2187, "meta": 0.13, "gapv": 19435, "gapf": 10}, "C2C": {"nd": false, "c": 628, "v": 926487, "freq": 5.148, "ticket": 1475, "meta": 1.12, "gapv": 0, "gapf": 0}, "Servicios": {"nd": false, "c": 193, "v": 417912, "freq": 1.582, "ticket": 2165, "meta": 1.58, "gapv": 0, "gapf": 0}, "Tiempo Aire": {"nd": false, "c": 15, "v": 980, "freq": 0.123, "ticket": 65, "meta": 0.12, "gapv": 0, "gapf": 0}, "Remesas": {"nd": false, "c": 0, "v": 0, "freq": 0.0, "ticket": 0, "meta": 0, "gapv": 0, "gapf": 0}, "SPEI Out": {"nd": false, "c": 484, "v": 426827, "freq": 3.967, "ticket": 882, "meta": 1.21, "gapv": 0, "gapf": 0}}}, "Nono": {"users": 2976, "active": 1322, "pct": 44.4, "vol": 13648720, "volact": 10324, "gapv": 5516916, "gapf": 6358, "prods": {"POS": {"nd": false, "c": 7977, "v": 7455168, "freq": 6.034, "ticket": 935, "meta": 1.87, "gapv": 0, "gapf": 0}, "ATM": {"nd": false, "c": 42, "v": 107788, "freq": 0.032, "ticket": 2566, "meta": 0.13, "gapv": 323897, "gapf": 126}, "C2C": {"nd": false, "c": 920, "v": 6066168, "freq": 0.696, "ticket": 6594, "meta": 1.12, "gapv": 3732469, "gapf": 0}, "Servicios": {"nd": false, "c": 14, "v": 10806, "freq": 0.011, "ticket": 772, "meta": 1.58, "gapv": 1457872, "gapf": 6232}, "Tiempo Aire": {"nd": false, "c": 114, "v": 6290, "freq": 0.086, "ticket": 55, "meta": 0.12, "gapv": 2678, "gapf": 0}, "Remesas": {"nd": false, "c": 1, "v": 2500, "freq": 0.001, "ticket": 2500, "meta": 0, "gapv": 0, "gapf": 0}, "SPEI Out": {"nd": true}}}}, "capmap": {"SPEI 24/7": "SPEI Out", "Pago servicios / CFE / Tiempo Aire": "Servicios", "Remesas MX → US": "Remesas", "Tarjeta Prepago Mastercard": "POS", "Tarjeta Prepago Visa": "POS"}, "cols": ["POS", "ATM", "C2C", "Servicios", "Tiempo Aire", "Remesas", "SPEI Out"]};
+
+/* ═══════ motor (mismas reglas que la matriz en Excel) ═══════ */
+const EXCLUSIVAS = {
+ 'Seguros Anemex (repatriación)':'Exclusividad de marca Finabien',
+ 'Seguro Médico al Estilo Jalisco':'Convenio con Gobierno de Jalisco',
+ 'Apoyos sociales Gobierno Jalisco':'Convenio con Gobierno de Jalisco',
+ 'Chip Dual Transporte Calypso':'Convenio de transporte estatal',
+ 'Distribución en consulados MX/EUA':'Convenio Gobierno de México',
+ 'Remesas US → MX ($2.99 · más barato)':'Tarifa exclusiva de marca Finabien US',
+ 'Terminal POS Ödeal (taxi)':'Producto dedicado a transporte concesionado',
+ 'Crédito con Garantía Despensa':'Requiere saldo despensa B2B (hoy Betterware)',
+ 'Dispersión masiva B2B (SetDispersion)':'Requiere contrato corporativo',
+ 'Portal tarjetafinabien.com':'Canal propio de marca Finabien',
+ 'Aportaciones voluntarias IMSS':'Convenio IMSS vía Finabien',
+ 'Referenciación · Invita y Gana':'Hoy solo en Betterware — replicable',
+};
+const CREDITO=['Línea Crédito Virtual (hasta $70K)','Crédito con Garantía Despensa','nonocard · desde $1 MXN','Tarjeta Crédito Visa (nonocard)','Tarjeta Crédito MC WE (nonoblack)'];
+const AHORRO=['Bóveda Vista 10% anual (SOFIPO)','Inversión 360 · 12% · DPF','Cuenta 30K UDIs (digital)'];
+const PLAZO=['Inversión 360 · 12% · DPF','Cuenta 30K UDIs (digital)'];
+const REQ_APP=['App Broxel / Finabien','Borderless (MX + US simultáneo)'];
+const INSTR=['Tarjeta Prepago Mastercard','Tarjeta Prepago Visa','Cuenta USD Pathward (FDIC)','Tarjeta Crédito Visa (nonocard)','Tarjeta Crédito MC WE (nonoblack)'];
+const TRANSAC=['SPEI 24/7','ACH In/Out USA','Cash In MX 28K+ puntos','Cash In USA 100K+ puntos','Pago servicios / CFE / Tiempo Aire'];
+const CANALES=['App Broxel / Finabien','nonoAI WhatsApp (único canal)','WhatsApp como canal adicional','Portal tarjetafinabien.com'];
+const EQUIV=[
+ [['Tarjeta Prepago Mastercard','Tarjeta Prepago Visa'],'Variante de red · ya tiene instrumento prepago'],
+ [['Tarjeta Crédito Visa (nonocard)','Tarjeta Crédito MC WE (nonoblack)'],'Variante de la misma línea Nono'],
+ [['Remesas US → MX ($3.99)','Remesas US → MX ($2.99 · más barato)'],'Misma capacidad · distinto precio por marca'],
+ [['App Broxel / Finabien','Portal tarjetafinabien.com'],'Variante de canal propio de marca'],
+];
+const POR_DISENO={'nono|WhatsApp como canal adicional':'Redundante · WhatsApp ya es su único canal',
+                  'nono|App Broxel / Finabien':'Por diseño · la vertical opera sin app'};
+const CONTRADICE={'betterware-mx|Remesas MX → US':'La ficha del proyecto sí declara remesas · verificar con producto',
+                  'taxipay-mx|Remesas MX → US':'La ficha del proyecto sí declara remesas · verificar con producto',
+                  'broxel-us|Bóveda Vista 10% anual (SOFIPO)':'La ficha declara ahorro pero la Bóveda es SOFIPO solo MX · verificar copy'};
+const BOOM_UP={'broxel-mx':'B2CSOFIPO3.5+USA3.0','broxel-us':'USA+SOFIPO3','finabien-mx':'BIENESTAR+B-USA3.0','finabien-us':'B-USA2.0+BIENESTAR'};
+const ICO={'Instrumento base':'💳','Ahorro e Inversión':'🏦','Crédito':'💰','Transferencias y Remesas':'⚡','Cobro Digital':'🔗','Canales':'📱','Beneficios Exclusivos':'🎁'};
+
+function capEtapa(c){
+  if(CREDITO.includes(c)) return 4;
+  if(PLAZO.includes(c)) return 2;
+  if(c==='Bóveda Vista 10% anual (SOFIPO)') return 1;
+  if(c==='Plan Familiar · menores') return 7;
+  if(['Seguros Anemex (repatriación)','Seguro Médico al Estilo Jalisco','Apoyos sociales Gobierno Jalisco',
+      'Aportaciones voluntarias IMSS','Referenciación · Invita y Gana','FDIC insured $250K'].includes(c)) return 8;
+  if(c==='Borderless (MX + US simultáneo)') return 6;
+  return 0;
+}
+function canal(v){
+  if(v.id==='nono') return ['WhatsApp (único canal)','Sin push: la vertical no tiene app'];
+  if(v.seg_d<=1) return ['SMS + WhatsApp','Perfil digital básico: el email tiene bajo alcance real'];
+  if(v.seg_d===2) return ['WhatsApp + Push','App instalada con uso moderado'];
+  return ['Push + Email','Perfil digital alto: soporta email y deeplink a app'];
+}
+const ESC=[
+ {s:'Alta',t:'Cruzar la primera transacción',p:'Una cuenta sin primer movimiento no responde a ofertas de ahorro ni de crédito. Antes de vender algo hay que cruzar el umbral de uso.',o:'Recarga de tiempo aire o pago de un recibo',k:'Primera transacción a 7 días'},
+ {s:'Transacciona',t:'Activar la Bóveda de Ahorro 10%',p:'Es la capacidad más subutilizada del portafolio y ya está contratada. No hay que originar nada: hay que mover saldo de un bolsillo al otro.',o:'Bóveda de Ahorro · 10% anual',k:'% de usuarios con saldo en Bóveda'},
+ {s:'Ahorra',t:'Subir de vista a plazo',p:'Ya demostró que puede dejar dinero parado. El salto de 10% a 12% es la venta más fácil del catálogo y alarga la permanencia del saldo.',o:'Inversión 360 · 12% DPF · o Cuenta 30K UDIs',k:'Saldo promedio y permanencia'},
+ {s:'Sin historial',t:'Abrir crédito con garantía',p:'Sin historial el revolvente no es opción. El colateral ya está en la casa y el crédito construye historial dentro del ecosistema.',o:'Línea de Crédito Garantizada',k:'% originación sobre elegibles'},
+ {s:'Con historial',t:'Pasar a crédito sin garantía',p:'Hay señal propia de comportamiento de pago. El crédito deja de ser una apuesta ciega y el monto puede preaprobarse.',o:'Línea de Crédito Virtual hasta $70K o nonocard',k:'Conversión de oferta preaprobada'},
+ {s:'Viene de B2B',t:'Puente B2B → B2C',p:'El flujo ya está construido en BOOM y no requiere registro nuevo. Es la base dormida más grande y la de menor costo de adquisición.',o:'Upgrade B2B → B2C',k:'% upgrade sobre base elegible'},
+ {s:'Con crédito',t:'Abrir el otro lado de la frontera',p:'Duplica el ARPU sin adquisición nueva: la misma persona con dos cuentas, spread FX y comisión de remesa en ambos lados.',o:'Cuenta del mercado contrario (MX↔US)',k:'Cuentas duales activas'},
+ {s:'Binacional',t:'Sumar al núcleo familiar',p:'Aumenta la permanencia por vínculo familiar y suma un usuario nuevo sin costo de adquisición. El comprador es el padre, el usuario es el hijo.',o:'Plan Familiar · tarjeta de menores',k:'Tarjetas secundarias activas'},
+ {s:'Maduro',t:'Capa de retención de largo plazo',p:'Aquí el mensaje deja de ser transaccional. Es donde se defiende el LTV contra Nu, Klar y Stori — pero casi todo sigue en Roadmap.',o:'Micro-seguros · descuentos · inversiones · AFORE',k:'Productos por usuario · churn'},
+];
+const TIERS=[
+ {k:'U',t:'Contratado y sin usar',d:'Ya lo tiene y casi no lo toca. Uso medido en Mayo 2026, no criterio.',c:'#C4522E'},
+ {k:'A',t:'Se activa hoy',d:'Su marca ya lo ofrece y él no lo usa. Cero desarrollo, cero originación.',c:'#1FA971'},
+ {k:'B',t:'Upgrade con flujo BOOM',d:'Está del otro lado de la frontera, pero la ruta ya está construida en BOOM.',c:'#2F7DED'},
+ {k:'N',t:'Existe en Broxel, no en su marca',d:'El ecosistema ya lo tiene resuelto en otra vertical. Es el abanico de lo replicable.',c:'#7C3AED'},
+ {k:'C',t:'Requiere producto o convenio',d:'Existe, pero atado a una exclusividad contractual.',c:'#D98A0B'},
+ {k:'V',t:'Verificar antes de accionar',d:'La ficha y la matriz del sitio se contradicen.',c:'#C4522E'},
+ {k:'R',t:'Roadmap sin fecha',d:'No se promete en comunicación al usuario.',c:'#66788F'},
+ {k:'X',t:'No aplican',d:'Variantes de algo que ya tiene, o incompatibles por diseño.',c:'#9AA8BC'},
+];
+
+/* ═══════ estado ═══════ */
+let vIdx=0, tiene=new Set(), ruta=[], filtro=null;
+const has=c=>tiene.has(c), anyOf=a=>a.some(has);
+function fullSet(i){const s=new Set();D.rows.forEach(r=>{if(r.d[i]===1)s.add(r.cap)});return s;}
+const ONBOARD=['Tarjeta Prepago Mastercard','Tarjeta Prepago Visa','Cuenta USD Pathward (FDIC)',
+  'Tarjeta Crédito Visa (nonocard)','App Broxel / Finabien','nonoAI WhatsApp (único canal)','Portal tarjetafinabien.com'];
+function baseSet(i){const f=fullSet(i);return new Set(ONBOARD.filter(c=>f.has(c)));}
+function paquetes(n){if(n<1)return 0;const c=k=>{if(n<k)return 0;let r=1;for(let j=0;j<k;j++)r=r*(n-j)/(j+1);return Math.round(r)};return c(1)+c(2)+c(3);}
+
+function redundante(v,cap){
+  const k=v.id+'|'+cap; if(POR_DISENO[k]) return POR_DISENO[k];
+  for(const [g,m] of EQUIV) if(g.includes(cap)&&g.some(o=>o!==cap&&has(o))) return m;
+  if(cap==='nonoAI WhatsApp (único canal)') return 'Canal propio de la vertical Nono · no transferible';
+  return null;
+}
+function evaluar(v,row,pel,enMarca){
+  const cap=row.cap, cov=row.d.reduce((a,b)=>a+b,0);
+  let pts0=enMarca?0:-8;
+  const red=redundante(v,cap);
+  if(red) return {cap,cov,tier:'X',idx:0,why:red,bar:'',prio:'Descartar',salto:0};
+  const cross=D.capmkt[cap]!=='MX+US'&&D.capmkt[cap]!==v.mkt;
+  const bar=[]; if(cross) bar.push('Cruce de mercado · requiere upgrade binacional');
+  if(EXCLUSIVAS[cap]) bar.push(EXCLUSIVAS[cap]);
+  if(v.id==='nono'&&REQ_APP.includes(cap)) bar.push('La vertical no tiene app · solo WhatsApp');
+  const contra=CONTRADICE[v.id+'|'+cap]; if(contra) bar.push('⚠ '+contra);
+  let aj,why;
+  if(CREDITO.includes(cap)){aj=v.seg_f>=2?'Alto':'Medio';
+    why=v.seg_f>=2?'Perfil financiero suficiente para originación estándar.':'Sin historial: entrar por crédito garantizado con saldo en Bóveda, no por revolvente.';}
+  else if(AHORRO.includes(cap)){aj=v.seg_f>=2?'Alto':'Medio';
+    why=v.seg_f>=2?'Segmento con capacidad de dejar saldo parado.':'Saldo de paso: el ángulo es que el dinero se quede un día más, no ahorro formal.';}
+  else if(REQ_APP.includes(cap)){aj=v.seg_d>=2?'Alto':'Medio';
+    why=v.seg_d>=2?'Uso de app compatible con el perfil.':'Perfil digital básico: la app no es el canal, WhatsApp sí.';}
+  else {aj=v.seg_d>=2?'Alto':'Medio'; why='Capacidad transaccional sin requisito de perfil.';}
+  if(bar.length&&!bar[0].startsWith('Cruce')) aj='Bajo';
+  let pts=cov*6+(aj==='Alto'?34:aj==='Medio'?17:0)+pts0;
+  if(cross)pts-=14; if(EXCLUSIVAS[cap])pts-=26; if(v.id==='nono'&&REQ_APP.includes(cap))pts-=40;
+  const salto=Math.max(0,capEtapa(cap)-pel);
+  if(salto){pts-=salto*12; bar.push('Fuera de secuencia · '+salto+' peldaño'+(salto>1?'s':'')+' por delante');}
+  if(capEtapa(cap)===pel&&pel>0) pts+=10;
+  const prio=pts>=50?'Alta':pts>=34?'Media':pts>=16?'Baja':'Descartar';
+  const tier=contra?'V':cross?'B':EXCLUSIVAS[cap]?'C':(enMarca?'A':'N');
+  if(!enMarca&&tier==='N') bar.push('Su marca no lo ofrece · replicable desde otra vertical');
+  return {cap,cov,tier,idx:Math.max(0,pts),why,bar:bar.join(' · '),prio,salto};
+}
+function peldano(v){
+  if(!anyOf(TRANSAC)) return 0;
+  if(!has('Bóveda Vista 10% anual (SOFIPO)')) return 1;
+  if(!anyOf(PLAZO)) return 2;
+  if(!anyOf(CREDITO)) return v.seg_f>=2?4:3;
+  const mx=D.rows.some(r=>has(r.cap)&&D.capmkt[r.cap]==='MX');
+  const us=D.rows.some(r=>has(r.cap)&&D.capmkt[r.cap]==='US');
+  if(!(mx&&us)) return 6;
+  if(!has('Plan Familiar · menores')) return 7;
+  return 8;
+}
+
+/* ═══════ render ═══════ */
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function renderBrands(){
+  document.getElementById('brands').innerHTML=D.verts.map((v,i)=>
+    `<button class="bcard ${i===vIdx?'on':''}" style="background:${v.grad}" data-v="${i}">
+      <b>${esc(v.name)}</b><span>${esc(v.mkt)} · perfil ${v.seg_d}/${v.seg_f}</span>
+     </button>`).join('');
+}
+function renderProds(){
+  const f=fullSet(vIdx), g={};
+  // Solo lo que esta marca sí ofrece. El resto vive abajo, en el abanico.
+  D.rows.filter(r=>f.has(r.cap)||has(r.cap)).forEach(r=>{(g[r.cat]=g[r.cat]||[]).push(r)});
+  const extra=[...tiene].filter(c=>!f.has(c)).length;
+  document.getElementById('prods').innerHTML=Object.keys(g).map(k=>
+    `<div class="pgrp"><div class="pgrp-t">${ICO[k]||''} ${esc(k)}</div><div class="tags">`+
+    g[k].map(r=>`<button class="tag ${has(r.cap)?'on':''}" data-c="${esc(r.cap)}">${esc(r.cap)}</button>`).join('')+
+    `</div></div>`).join('')+
+    `<div class="pbtns">
+      <button class="mini" data-set="alta">Alta nueva</button>
+      <button class="mini" data-set="todo">Todo lo de la marca</button>
+      <button class="mini" data-set="vaciar">Vaciar</button>
+      <span class="hint">${f.size} capacidades en esta marca${extra?` · ${extra} agregada${extra>1?'s':''} desde el abanico`:''}.</span>
+    </div>`;
+}
+function usoReal(v){                       // capacidades contratadas con uso medido bajo
+  const a=D.act[v.name]; if(!a) return [];
+  const out=[];
+  Object.entries(D.capmap).forEach(([cap,prod])=>{
+    if(!has(cap)) return;
+    const p=a.prods[prod]; if(!p||p.nd) return;
+    if(p.freq >= p.meta*0.75) return;        // ya está en línea con sus pares
+    out.push({cap,tier:'U',idx:0,cov:0,salto:0,prod,
+      freq:p.freq,meta:p.meta,ticket:p.ticket,c:p.c,gapv:p.gapv,gapf:p.gapf,
+      why:`Uso real ${p.freq.toFixed(2)}× por activo al mes contra ${p.meta.toFixed(2)}× de sus pares. `+
+          `${p.c.toLocaleString('es-MX')} operaciones sobre ${a.active.toLocaleString('es-MX')} activos.`,
+      bar:`Dinero dormido ${money(p.gapv)} al mes`+(p.gapf?` · ${money(p.gapf)} de comisión`:''),
+      prio:'Medido'});
+  });
+  return out.sort((x,y)=>y.gapv-x.gapv);
+}
+const money=n=>n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1e3?'$'+Math.round(n/1e3)+'K':'$'+Math.round(n);
+
+function renderAll(){
+  const v=D.verts[vIdx], [ch,chNote]=canal(v), pel=peldano(v);
+  document.getElementById('p2sub').textContent='Solo las capacidades que esta marca sí ofrece. «Alta nueva» deja el instrumento y su canal, que es lo que trae alguien recién dado de alta.';
+
+  // escalera
+  document.getElementById('rail').innerHTML=ESC.map((e,i)=>
+    `<div class="rung ${i<pel?'done':i===pel?'now':''}"><div class="dot">${i<pel?'✓':i}</div><small>${esc(e.s)}</small></div>`).join('');
+
+  // siguiente mejor acción
+  const e=ESC[pel];
+  document.getElementById('nba').style.background=v.grad;
+  document.getElementById('nba').innerHTML=
+    `<div class="eb">Peldaño ${pel} de 8 · siguiente mejor acción</div>
+     <h3>${esc(e.t)}</h3><p>${esc(e.p)}</p>
+     <div class="m">
+       <div>Oferta<b>${esc(e.o)}</b></div>
+       <div>Canal propio<b>${esc(ch)}</b></div>
+       <div>KPI<b>${esc(e.k)}</b></div>
+       ${pel===6?`<div>Flujo BOOM<b>${esc(BOOM_UP[v.id]||'Sin flujo binacional directo')}</b></div>`:''}
+     </div>`;
+
+  // ruta
+  document.getElementById('path').innerHTML=`<span class="pl">Ruta simulada</span>`+
+    (ruta.length? ruta.map((s,j)=>`<span class="pstep ${j===ruta.length-1?'last':''}">${esc(s)}</span>`).join('')
+       +`<button class="undo" data-undo="1">Deshacer</button>`
+     : `<em>Agrega una oferta desde una tarjeta y la secuencia se arma sola.</em>`);
+
+  // evaluación
+  const marca=fullSet(vIdx);
+  const evs=D.rows.filter(r=>!has(r.cap)&&!CANALES.includes(r.cap)).map(r=>evaluar(v,r,pel,marca.has(r.cap)));
+  const road=D.road.filter(x=>x.mkt===v.mkt||x.mkt==='MX+US')
+    .map(x=>({cap:x.n,cov:0,tier:'R',idx:0,why:x.desc,bar:'Estatus Roadmap · sin fecha comprometida',prio:'Roadmap',salto:0}));
+  const all=evs.concat(road).concat(usoReal(v)), by={};
+  TIERS.forEach(t=>by[t.k]=[]); all.forEach(o=>by[o.tier].push(o));
+  Object.values(by).forEach(a=>a.sort((x,y)=>y.idx-x.idx));
+  const viables=by.A.length+by.B.length+by.N.length+by.C.length;
+  document.getElementById('k1').textContent=tiene.size;
+  document.getElementById('k2').textContent=viables;
+  document.getElementById('k3').textContent=paquetes(viables).toLocaleString('es-MX');
+
+  // filtros
+  document.getElementById('pills').innerHTML=
+    `<button class="pill ${filtro===null?'on':''}" data-f="">Todas <b>${all.length}</b></button>`+
+    TIERS.filter(t=>by[t.k].length).map(t=>
+      `<button class="pill ${filtro===t.k?'on':''}" style="--c:${t.c}" data-f="${t.k}"><i></i>${esc(t.t)} <b>${by[t.k].length}</b></button>`).join('');
+
+  // tarjetas
+  const max=Math.max(...all.map(o=>o.idx),1);
+  document.getElementById('tiers').innerHTML=TIERS.filter(t=>by[t.k].length&&(!filtro||filtro===t.k)).map(t=>
+    `<div class="tgrp" style="--c:${t.c}">
+      <div class="tgrp-h"><h4>${esc(t.t)}</h4><p>${esc(t.d)}</p><b>${by[t.k].length}</b></div>
+      <div class="cards">${by[t.k].map(o=>`
+        <div class="card">
+          <div class="card-t">
+            <h5>${esc(o.cap)}</h5>
+            ${o.tier==='U'?`<div class="ring" style="--p:${Math.min(100,Math.round(o.freq/o.meta*100))};--c:#C4522E"><i style="font-size:10px">${o.freq.toFixed(2)}×</i></div>`
+              :o.idx?`<div class="ring" style="--p:${Math.round(o.idx/max*100)}"><i>${o.idx}</i></div>`:''}
+          </div>
+          <p>${esc(o.why)}</p>
+          ${o.bar?`<div class="bar">${esc(o.bar)}</div>`:''}
+          <div class="ft">
+            <span class="cov">${o.tier==='U'?'Medido en Mayo 2026 · ticket $'+o.ticket.toLocaleString('es-MX')
+              :o.tier==='R'?'Roadmap':o.tier==='X'?'No incremental':'En '+o.cov+' de 8 marcas'}</span>
+            ${o.salto?`<span class="warnpill">+${o.salto}</span>`:''}
+            ${(o.tier==='A'||o.tier==='B')?`<button class="add" data-add="${esc(o.cap)}">Agregar</button>`:''}
+          </div>
+        </div>`).join('')}</div>
+    </div>`).join('');
+
+  document.getElementById('foot').innerHTML=
+    `<b>Canal de esta marca.</b> ${esc(ch)} — ${esc(chNote)}.<br>
+     <b>Cómo se ordena.</b> Índice = cobertura en las otras marcas ×6 + ajuste al perfil (Alto 34 / Medio 17 / Bajo 0) − 14 si cruza mercado − 26 si hay exclusividad − 40 si la marca no tiene el canal − 12 por cada peldaño de adelanto. Es criterio de orden, no estimación de ingreso.<br>
+     <b>Dos motores distintos.</b> El árbol de los pasos 2 y 3 ordena por <em>ejecutabilidad</em>: qué se puede accionar y con cuánta fricción. El mapa del paso 4 ordena por <em>atractivo</em>: a quién le late cada producto, exista o no en su marca. Se leen juntos, no se sustituyen.<br>
+     <b>Alcance del dato real.</b> La lámina 4 de la Presentación cubre 5 verticales MX de las 8 del portafolio: no hay TaxiPay, Broxel US ni Finabien US, ni columnas de Bóveda o crédito. Los peldaños 1 a 4 de la escalera siguen sin medición.<br>
+     <b>Lo que falta.</b> Para el resto, el sitio describe capacidad instalada, no adopción. Cuando cruces el universo real por razón social desde BigQuery, ambos índices dejan de ser criterio y pasan a ser pesos.<br>
+     <b>Fuente.</b> Sitio interno b2c-producto, páginas Capacidades y Proyectos, corte Junio 2026. Mismo motor que la matriz en Excel.`;
+}
+/* ═══════ cruce producto × arquetipo ═══════ */
+let orden='cat', selCell=null;
+function heatColor(v){ // rampa secuencial del sistema DOME
+  const st=[[240,244,249],[187,214,246],[110,168,240],[47,125,237],[11,42,78]];
+  const x=Math.max(0,Math.min(1,v/100))*(st.length-1), i=Math.floor(x), f=x-i;
+  const a=st[i], b=st[Math.min(i+1,st.length-1)];
+  return `rgb(${a.map((c,j)=>Math.round(c+(b[j]-c)*f)).join(',')})`;
+}
+function renderTops(){
+  document.getElementById('tops').innerHTML=D.verts.map((v,i)=>{
+    const r=Object.entries(D.attract)
+      .filter(([c,d])=>!d.cells[i].tiene&&!d.cells[i].red)
+      .sort((a,b)=>b[1].cells[i].s-a[1].cells[i].s).slice(0,3);
+    return `<div class="top ${i===vIdx?'on':''}">
+      <div class="top-h"><span class="av">${v.av}</span><b>${esc(v.name)}</b><span>${esc(v.mkt)}</span></div>
+      <div class="hl">${esc(v.seg_hl.replace(/"/g,''))}</div>
+      <ol>${r.map(([c,d])=>`<li>${esc(c)}<b>${d.cells[i].s}</b></li>`).join('')}</ol>
+    </div>`;
+  }).join('');
+}
+function renderHeat(){
+  const caps=Object.entries(D.attract);
+  let html=`<tr><th class="rowh">Producto</th>`+D.verts.map((v,i)=>
+    `<th class="${i===vIdx?'sel':''}"><span class="av">${v.av}</span>${esc(v.name.split(' ')[0])}</th>`).join('')+`</tr>`;
+  const cell=(c,d,i)=>{
+    const x=d.cells[i], cls=x.tiene?'tiene':x.red?'red':'';
+    const st=(x.tiene||x.red)?'':`background:${heatColor(x.s)};color:${x.s>52?'#fff':'#0F2540'}`;
+    const key=c+'|'+i;
+    return `<td><div class="cell ${cls} ${selCell===key?'sel':''}" style="${st}" data-cell="${esc(key)}">${x.tiene?'✓':x.red?'—':x.s}</div></td>`;
+  };
+  if(orden==='score'){
+    const s=caps.slice().sort((a,b)=>
+      (b[1].cells.reduce((t,x)=>t+x.s,0))-(a[1].cells.reduce((t,x)=>t+x.s,0)));
+    html+=s.map(([c,d])=>`<tr><td class="rowh">${esc(c)}</td>${D.verts.map((v,i)=>cell(c,d,i)).join('')}</tr>`).join('');
+  } else {
+    const g={}; caps.forEach(([c,d])=>{(g[d.cat]=g[d.cat]||[]).push([c,d])});
+    html+=Object.keys(g).map(k=>
+      `<tr class="catrow"><td colspan="9">${ICO[k]||''} ${esc(k)}</td></tr>`+
+      g[k].map(([c,d])=>`<tr><td class="rowh">${esc(c)}</td>${D.verts.map((v,i)=>cell(c,d,i)).join('')}</tr>`).join('')
+    ).join('');
+  }
+  document.getElementById('hm').innerHTML=html;
+  document.getElementById('ramp').innerHTML=[0,25,50,75,100].map(v=>`<i style="background:${heatColor(v)}"></i>`).join('');
+}
+function renderDetail(key){
+  const d=document.getElementById('detail');
+  if(!key){d.innerHTML='Toca cualquier celda para ver de dónde sale el puntaje: relevancia, ajuste al perfil y en cuántas marcas está validado.';return;}
+  const [c,i]=[key.slice(0,key.lastIndexOf('|')),+key.slice(key.lastIndexOf('|')+1)];
+  const a=D.attract[c], x=a.cells[i], v=D.verts[i];
+  const est=x.tiene?'<b>Su marca ya lo ofrece</b> — si no lo usa, es activación, no venta.'
+    :x.red?'<b>Variante de algo que ya tiene</b> — no suma capacidad.'
+    :`<b>No está en su marca</b> — replicarlo requiere producto.`;
+  d.innerHTML=`<b>${esc(c)}</b> para ${v.av} <b>${esc(v.name)}</b> — atractivo <span class="num">${x.s}</span>.
+    Relevancia al lenguaje del arquetipo <span class="num">${x.r}%</span> ·
+    ajuste al perfil <span class="num">${x.f}%</span> ·
+    validado en <span class="num">${a.cov} de 8</span> marcas. ${est}`;
+}
+
+function renderReal(){
+  const A=D.act, names=Object.keys(A);
+  const treg=names.reduce((t,n)=>t+A[n].users,0), tact=names.reduce((t,n)=>t+A[n].active,0);
+  const tvol=names.reduce((t,n)=>t+A[n].vol,0), tgap=names.reduce((t,n)=>t+A[n].gapv,0);
+  document.getElementById('usokpis').innerHTML=
+    `<div class="usokpi"><h6>Registrados</h6><b>${(treg/1000).toFixed(0)}K</b><span>en las 5 verticales medidas</span></div>
+     <div class="usokpi"><h6>Activos</h6><b>${(tact/1000).toFixed(1)}K</b><span>${(tact/treg*100).toFixed(2)}% de la base</span></div>
+     <div class="usokpi"><h6>Volumen del mes</h6><b>${money(tvol)}</b><span>${money(tvol/tact)} por activo</span></div>
+     <div class="usokpi" style="border-color:var(--danger)"><h6 style="color:var(--danger)">Dinero dormido</h6><b style="color:var(--danger)">${money(tgap)}</b><span>producto contratado sin usar</span></div>`;
+
+  const maxf={}; D.cols.forEach(c=>{maxf[c]=Math.max(...names.map(n=>A[n].prods[c].nd?0:A[n].prods[c].freq))});
+  let h=`<tr><th class="rh">Vertical</th><th>Activación</th>`+D.cols.map(c=>`<th>${esc(c)}</th>`).join('')+`</tr>`;
+  names.forEach(n=>{
+    const a=A[n], ac=a.pct>30?'#1FA971':a.pct>8?'#7CC49B':a.pct>3?'#D98A0B':'#C4522E';
+    h+=`<tr><td class="rh">${esc(n)}</td>`
+      +`<td class="actcell"><span class="actpct" style="color:${ac}">${a.pct}%</span>`
+      +`<span class="rt">${a.active.toLocaleString('es-MX')} de ${a.users.toLocaleString('es-MX')}</span></td>`
+      +D.cols.map(c=>{
+        const p=a.prods[c];
+        if(p.nd) return `<td style="background:var(--raised);color:var(--dim)"><span class="rt">n/d</span></td>`;
+        const s=maxf[c]>0?p.freq/maxf[c]:0;
+        const bg=heatColor(s*100), col=s>0.52?'#fff':'#0F2540';
+        return `<td style="background:${bg};color:${col}"><span class="rf">${p.freq.toFixed(2)}×</span>`
+          +`<span class="rt">$${p.ticket.toLocaleString('es-MX')}</span></td>`;
+      }).join('')+`</tr>`;
+  });
+  document.getElementById('realtbl').innerHTML=h;
+
+  const gaps=[];
+  names.forEach(n=>D.cols.forEach(c=>{
+    const p=A[n].prods[c];
+    if(!p.nd&&p.gapv>200000) gaps.push({n,c,...p});
+  }));
+  gaps.sort((a,b)=>b.gapv-a.gapv);
+  const mg=Math.max(...gaps.map(g=>g.gapv),1);
+  document.getElementById('gapbars').innerHTML=gaps.map(g=>
+    `<div class="gaprow"><div class="gl">${esc(g.n)} · ${esc(g.c)}
+       <small>${g.freq.toFixed(2)}× hoy → ${g.meta.toFixed(2)}× de sus pares</small></div>
+     <div class="gtrack"><i style="width:${Math.round(g.gapv/mg*100)}%"></i></div>
+     <div class="gval">${money(g.gapv)}<small>${g.gapf?money(g.gapf)+' comisión':'sin cuota fija'}</small></div>
+    </div>`).join('');
+}
+
+function reset(){tiene=baseSet(vIdx);ruta=[];filtro=null;selCell=null;renderBrands();renderProds();renderAll();renderTops();renderHeat();renderDetail(null);renderReal();}
+
+/* ═══════ eventos ═══════ */
+document.getElementById('brands').addEventListener('click',e=>{
+  const b=e.target.closest('[data-v]'); if(!b)return; vIdx=+b.dataset.v; reset();
+});
+document.getElementById('prods').addEventListener('click',e=>{
+  const t=e.target.closest('[data-c]');
+  if(t){const c=t.dataset.c; has(c)?tiene.delete(c):tiene.add(c); renderProds(); renderAll(); return;}
+  const s=e.target.closest('[data-set]'); if(!s)return;
+  if(s.dataset.set==='alta') tiene=baseSet(vIdx);
+  if(s.dataset.set==='todo') tiene=fullSet(vIdx);
+  if(s.dataset.set==='vaciar') tiene=new Set();
+  ruta=[]; renderProds(); renderAll();
+});
+document.getElementById('pills').addEventListener('click',e=>{
+  const p=e.target.closest('[data-f]'); if(!p)return; filtro=p.dataset.f||null; renderAll();
+});
+document.getElementById('tiers').addEventListener('click',e=>{
+  const a=e.target.closest('[data-add]'); if(!a)return;
+  tiene.add(a.dataset.add); ruta.push(a.dataset.add); renderProds(); renderAll();
+});
+document.getElementById('path').addEventListener('click',e=>{
+  if(!e.target.closest('[data-undo]'))return;
+  const last=ruta.pop(); if(last)tiene.delete(last); renderProds(); renderAll();
+});
+document.getElementById('hm').addEventListener('click',e=>{
+  const c=e.target.closest('[data-cell]'); if(!c)return;
+  selCell=(selCell===c.dataset.cell)?null:c.dataset.cell;
+  renderHeat(); renderDetail(selCell);
+});
+document.querySelectorAll('[data-sort]').forEach(b=>b.addEventListener('click',()=>{
+  orden=b.dataset.sort; renderHeat();
+}));
+reset();
+</script>
+</body>
+</html>
