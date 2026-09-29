@@ -1,490 +1,295 @@
-<title>Inversión de Medios MG 2026</title>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Revisión de Cotizaciones Sunatech</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
+/* Layout: expediente de revisión — portada con resumen, hallazgos, comparativas, preguntas numeradas y propuesta de cierre */
 :root{
-  --mg-red:#C8102E; --mg-red-ink:#A50D26; --mg-red-soft:#F7DCE1;
-  --bs:#0080AE; --bs-soft:#D7EDF6;
-  --bg:#F7F5F5; --surface:#FFFFFF; --surface-2:#FBF9F9;
-  --ink:#171415; --ink-2:#4A4245; --ink-3:#7C7276;
-  --line:#E4DEDF; --line-strong:#CFC7C9;
-  --band:#171415; --band-ink:#F3EFEF; --band-ink-2:#A79EA1;
-  --grid:#EFEAEB;
-  --ok:#2F7D4F; --warn:#A8760A;
-  --shadow:0 1px 2px rgba(23,20,21,.05), 0 8px 24px -14px rgba(23,20,21,.28);
+  --bg:#F2F4F7; --paper:#FFFFFF; --ink:#141C2B; --muted:#5D6778; --line:#DCE1E8;
+  --navy:#1B2A44; --navy-fg:#EEF2F8; --amber:#D98E1C; --amber-soft:#FCEFD8;
+  --red:#C23B2A; --red-soft:#FAE3DF; --green:#1F7F57; --green-soft:#DDF1E7;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --mg-red:#E8455F; --mg-red-ink:#F2758A; --mg-red-soft:#3B1A22;
-    --bs:#2E9DC0; --bs-soft:#0F2B36;
-    --bg:#131113; --surface:#1B181A; --surface-2:#211D20;
-    --ink:#F2EDEE; --ink-2:#C0B7BA; --ink-3:#8C8286;
-    --line:#302B2E; --line-strong:#453E42;
-    --band:#0D0B0C; --band-ink:#F2EDEE; --band-ink-2:#8C8286;
-    --grid:#292427;
-    --ok:#5FBE86; --warn:#D0A03C;
-    --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 28px -16px rgba(0,0,0,.8);
-  }
-}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E131C; --paper:#161D29; --ink:#E7ECF3; --muted:#9AA5B6; --line:#2A3445;
+  --navy:#0B1220; --navy-fg:#E7ECF3; --amber:#F0AE4A; --amber-soft:#3A2B12;
+  --red:#F07B69; --red-soft:#3B1914; --green:#56C595; --green-soft:#12301F; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --mg-red:#E8455F; --mg-red-ink:#F2758A; --mg-red-soft:#3B1A22;
-  --bs:#2E9DC0; --bs-soft:#0F2B36;
-  --bg:#131113; --surface:#1B181A; --surface-2:#211D20;
-  --ink:#F2EDEE; --ink-2:#C0B7BA; --ink-3:#8C8286;
-  --line:#302B2E; --line-strong:#453E42;
-  --band:#0D0B0C; --band-ink:#F2EDEE; --band-ink-2:#8C8286;
-  --grid:#292427;
-  --ok:#5FBE86; --warn:#D0A03C;
-  --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 28px -16px rgba(0,0,0,.8);
-}
+  --bg:#0E131C; --paper:#161D29; --ink:#E7ECF3; --muted:#9AA5B6; --line:#2A3445;
+  --navy:#0B1220; --navy-fg:#E7ECF3; --amber:#F0AE4A; --amber-soft:#3A2B12;
+  --red:#F07B69; --red-soft:#3B1914; --green:#56C595; --green-soft:#12301F; color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
-  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1180px;margin:0 auto;padding:0 24px 72px}
-h1,h2,h3,.cond{font-family:"Barlow Condensed","Barlow Semi Condensed",system-ui,sans-serif}
-.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:30px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:clamp(1.3rem,2.5vw,1.7rem);font-weight:800}
+h3{font-size:1.02rem;font-weight:600}
+p{margin:0}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.sec{display:flex;flex-direction:column;gap:14px}
+.sec-head{display:flex;flex-direction:column;gap:4px}
+.sec-head p{color:var(--muted);max-width:66ch}
+.note{font-size:.8rem;color:var(--muted)}
 
-/* ── masthead ── */
-.band{background:var(--band);color:var(--band-ink);padding:34px 0 0;border-bottom:3px solid var(--mg-red)}
-.band .wrap{padding-bottom:0}
-.mark{display:flex;align-items:center;gap:14px}
-.hex{width:44px;height:50px;flex:none}
-.mark .nm{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:30px;letter-spacing:.16em;line-height:1;color:#fff}
-.mark .sb{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--band-ink-2);margin-top:5px}
-h1{font-size:clamp(34px,5.4vw,56px);font-weight:700;letter-spacing:-.005em;line-height:1.02;margin:26px 0 8px;text-wrap:balance;color:#fff}
-h1 em{font-style:normal;color:var(--mg-red-ink)}
-.sub{color:var(--band-ink-2);max-width:62ch;margin:0 0 26px;font-size:15.5px}
-.statebar{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid rgba(255,255,255,.11);margin-top:4px}
-.st{padding:14px 26px 16px;border-right:1px solid rgba(255,255,255,.11);flex:1 1 150px}
-.st:last-child{border-right:0}
-.st:first-child{padding-left:0}
-.st .k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--band-ink-2)}
-.st .v{font-family:"Barlow Condensed",sans-serif;font-size:27px;font-weight:600;color:#fff;line-height:1.15;margin-top:2px}
+.cover{background:var(--navy);color:var(--navy-fg);margin-inline:-16px;padding:30px 16px 26px;border-radius:0 0 20px 20px}
+.cover-in{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.meta span{font-family:var(--mono);font-size:.75rem;border:1px solid color-mix(in srgb,var(--navy-fg) 28%,transparent);border-radius:99px;padding:4px 10px}
+.cover h1{font-size:clamp(1.8rem,4.2vw,2.8rem);font-weight:800;line-height:1.08;max-width:24ch}
+.cover h1 em{font-style:normal;color:var(--amber)}
+.cover .lead{max-width:64ch;opacity:.88}
+.ask{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ask div{background:color-mix(in srgb,var(--navy-fg) 7%,transparent);border:1px solid color-mix(in srgb,var(--navy-fg) 14%,transparent);border-radius:12px;padding:12px 14px;min-width:0}
+.ask b{display:block;font-family:var(--display);font-size:1.35rem;margin-top:3px}
+.ask .eyebrow{color:inherit;opacity:.7}
+.ask .hl b{color:var(--amber)}
 
-/* ── sections ── */
-section{margin-top:44px}
-.eyebrow{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
-.eyebrow h2{font-size:23px;font-weight:600;letter-spacing:.01em;margin:0}
-.eyebrow .note{font-size:12.5px;color:var(--ink-3)}
-.rule{height:2px;background:var(--mg-red);width:38px;margin-bottom:16px}
+.hl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.hl{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.hl.crit{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.hl .tag{align-self:flex-start;font-size:.7rem;font-weight:600;letter-spacing:.04em;padding:3px 9px;border-radius:99px}
+.tag.r{background:var(--red-soft);color:var(--red)} .tag.a{background:var(--amber-soft);color:var(--amber)} .tag.g{background:var(--green-soft);color:var(--green)}
+.hl .fig{font-family:var(--display);font-weight:800;font-size:1.7rem;line-height:1.1}
+.hl p{font-size:.88rem;color:var(--muted)}
 
-.card{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow)}
-.pad{padding:22px 24px}
+.tbl{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:.87rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-family:var(--display);font-weight:600;background:color-mix(in srgb,var(--ink) 4%,var(--paper))}
+tbody th{font-weight:500;color:var(--muted)}
+td.r{text-align:right}
+td.bad{background:var(--red-soft);color:var(--red);font-weight:600}
+td.ok{background:var(--green-soft);color:var(--green);font-weight:600}
+tr:last-child td,tr:last-child th{border-bottom:0}
+.x{color:var(--red);font-weight:600}
 
-/* ── KPI tiles ── */
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:18px 20px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--line-strong)}
-.kpi.real::before{background:var(--mg-red)}
-.kpi.proy::before{background:repeating-linear-gradient(135deg,var(--mg-red) 0 3px,transparent 3px 6px),var(--mg-red-soft)}
-.kpi.extra::before{background:var(--bs)}
-.kpi .k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
-.kpi .v{font-family:"Barlow Condensed",sans-serif;font-size:38px;font-weight:700;line-height:1.05;margin-top:6px;letter-spacing:-.01em}
-.kpi .d{font-size:12.5px;color:var(--ink-2);margin-top:5px}
-.chip{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:600;
-  padding:3px 8px;border-radius:2px;border:1px solid var(--line-strong);color:var(--ink-2);background:var(--surface-2)}
-.chip .dot{width:8px;height:8px;border-radius:1px;background:var(--mg-red)}
-.chip.p .dot{background:repeating-linear-gradient(135deg,var(--mg-red) 0 2px,transparent 2px 4px);border:1px solid var(--mg-red)}
-.chip.b .dot{background:var(--bs)}
+.obs{display:flex;flex-direction:column;gap:8px}
+.ob{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ob>div{padding:12px 14px;min-width:0}
+.ob .said{background:var(--red-soft)}
+.ob small{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:3px}
+.ob .said small{color:var(--red)} .ob .real small{color:var(--green)}
+.ob .said b{font-family:var(--mono);font-weight:500}
 
-/* ── charts ── */
-.chartbox{position:relative}
-svg{display:block;width:100%;height:auto;overflow:visible}
-.legend{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
-.tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .1s;background:var(--band);color:var(--band-ink);
-  border-radius:3px;padding:9px 11px;font-size:12.5px;min-width:150px;z-index:9;box-shadow:0 10px 26px -10px rgba(0,0,0,.55);
-  border-left:3px solid var(--mg-red)}
-.tip .th{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
-.tip .r{display:flex;justify-content:space-between;gap:14px}
-.tip .r span:last-child{font-variant-numeric:tabular-nums;font-weight:600}
-.tip .r.mut{color:var(--band-ink-2)}
+.qtools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:.82rem;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:99px;padding:5px 12px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip:focus-visible,.btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.btn{font:inherit;font-weight:600;font-size:.86rem;border:0;border-radius:10px;padding:9px 14px;background:var(--amber);color:#1B1203;cursor:pointer}
+.qgroup{display:flex;flex-direction:column;gap:6px}
+.qgroup h3{font-size:.95rem;color:var(--muted);margin-top:6px}
+.q{display:grid;grid-template-columns:46px 1fr;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.q .n{font-family:var(--mono);font-weight:500;color:var(--amber);font-size:.95rem}
+.q p{font-weight:500}
+.q .why{font-size:.83rem;color:var(--muted);font-weight:400;margin-top:3px}
+.q.prio{border-left:4px solid var(--red)}
 
-/* ── table ── */
-.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);box-shadow:var(--shadow)}
-table{border-collapse:collapse;width:100%;min-width:900px;font-size:13.5px}
-th,td{padding:9px 12px;text-align:right;white-space:nowrap}
-thead th{font-family:"Barlow Condensed",sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
-  color:var(--ink-3);border-bottom:1px solid var(--line-strong);background:var(--surface-2);position:sticky;top:0}
-thead tr.grp th{padding-bottom:4px;border-bottom:0;font-size:10px;letter-spacing:.2em;text-align:center}
-thead tr.grp th.r{color:var(--mg-red)} thead tr.grp th.p{color:var(--ink-2)}
-th.lbl,td.lbl{text-align:left;font-weight:600;position:sticky;left:0;background:var(--surface);z-index:2}
-thead th.lbl{background:var(--surface-2)}
-tbody tr:nth-child(even) td{background:var(--surface-2)}
-tbody tr:nth-child(even) td.lbl{background:var(--surface-2)}
-tbody td.proj{color:var(--ink-2)}
-tbody tr.sum td{border-top:1px solid var(--line-strong);font-weight:700;background:var(--surface)!important}
-tbody tr.grand td{border-top:2px solid var(--mg-red);font-weight:700;background:var(--mg-red-soft)!important}
-tbody tr.extra td{border-top:1px solid var(--bs);background:var(--bs-soft)!important;font-weight:600}
-tbody tr:hover td{background:var(--mg-red-soft)!important}
-td.zero{color:var(--ink-3)}
-.divcol{border-left:1px dashed var(--line-strong)}
+.deal{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.box.main{border:2px solid var(--green)}
+.box .price{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1}
+.box ol,.box ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px;font-size:.9rem}
+footer{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
 
-/* ── meters ── */
-.meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
-.meter .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
-.meter .nm{font-family:"Barlow Condensed",sans-serif;font-size:17px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-.meter .pc{font-variant-numeric:tabular-nums;font-weight:700;font-size:15px}
-.track{height:9px;background:var(--grid);border-radius:1px;overflow:hidden;display:flex}
-.track i{display:block;height:100%}
-.track i.r{background:var(--mg-red)}
-.track i.p{background:repeating-linear-gradient(135deg,var(--mg-red) 0 3px,var(--mg-red-soft) 3px 6px)}
-.track i.b{background:var(--bs)}
-.track i.bp{background:repeating-linear-gradient(135deg,var(--bs) 0 3px,var(--bs-soft) 3px 6px)}
-.meter .foot{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3);margin-top:7px}
-
-.two{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
-@media (max-width:900px){.two{grid-template-columns:1fr}}
-.note-box{font-size:13px;color:var(--ink-2);border-left:2px solid var(--line-strong);padding:2px 0 2px 14px}
-.note-box b{color:var(--ink)}
-footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-:focus-visible{outline:2px solid var(--mg-red);outline-offset:2px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:820px){.hl-grid{grid-template-columns:1fr 1fr}.ask{grid-template-columns:1fr 1fr}.deal{grid-template-columns:1fr}}
+@media (max-width:520px){.hl-grid{grid-template-columns:1fr}.ob{grid-template-columns:1fr}.q{grid-template-columns:38px 1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+<style>body{margin:0}</style>
+</head>
+<body>
 
-<div class="band">
-  <div class="wrap">
-    <div class="mark">
-      <svg class="hex" viewBox="0 0 44 50" aria-hidden="true">
-        <path d="M22 1 42 12.5v25L22 49 2 37.5v-25Z" fill="#C8102E"/>
-        <path d="M22 1 42 12.5v25L22 49 2 37.5v-25Z" fill="none" stroke="#fff" stroke-opacity=".35"/>
-        <text x="22" y="32" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="19" font-weight="700" fill="#fff" letter-spacing="1">MG</text>
-      </svg>
-      <div>
-        <div class="nm">MG MOTOR</div>
-        <div class="sb">México · Marketing &amp; Media</div>
+<header class="cover">
+  <div class="cover-in">
+    <div class="meta"><span>Para: Sunatech · Ing. Raúl González · Ing. Rudy Díaz</span><span>De: Luis Fonseca</span><span>29 sep 2026</span></div>
+    <h1>Revisión de las 5 cotizaciones de sistema <em>híbrido</em></h1>
+    <p class="lead">Revisé la cotización del 22 de septiembre y las cuatro del 29. Me interesa contratar, pero antes necesito aclarar un aumento de precio que no corresponde a mi consumo, un inversor que ya no está disponible y varios cálculos que no coinciden con mi recibo. Abajo están los hallazgos, las comparativas, mis preguntas y la propuesta que estoy dispuesto a firmar.</p>
+    <div class="ask">
+      <div><span class="eyebrow">Mi consumo anual</span><b class="num">4,847 kWh</b></div>
+      <div><span class="eyebrow">Pago anual real</span><b class="num">$18,360</b></div>
+      <div><span class="eyebrow">Cotización 22 sep</span><b class="num">$129,000</b><span class="note" style="color:inherit;opacity:.7">+ IVA</span></div>
+      <div class="hl"><span class="eyebrow">Cotización 29 sep</span><b class="num">$182,000</b><span class="note" style="color:inherit;opacity:.7">+ IVA · +41%</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="sec" id="hallazgos">
+    <div class="sec-head"><h2>Hallazgos principales</h2><p>Lo que necesito que me expliquen antes de firmar.</p></div>
+    <div class="hl-grid">
+      <article class="hl crit"><span class="tag r">Equipo descontinuado</span><div class="fig">SPH 6000 BL-US</div><p>El inversor de la cotización de $129,000 ya no se fabrica y ustedes no tienen inventario. Pido el mismo alcance con el reemplazo actual, el SPH 10000TL-HU-US, sin trasladarme el costo de la falta de inventario.</p></article>
+      <article class="hl crit"><span class="tag r">Aumento sin justificación</span><div class="fig num">+$53,000</div><p>La opción Growatt pasó de $129,000 a $182,000 + IVA en siete días. Se agregaron 2 paneles y un inversor más grande que no solicité. Por lo agregado se cobra $42 por Wp; el sistema original completo, con batería, costaba $35/Wp.</p></article>
+      <article class="hl"><span class="tag a">Sobredimensionado</span><div class="fig num">140%</div><p>Con 8 paneles la generación supera mi consumo anual en unos 2,000 kWh que CFE no paga. Con 6 paneles cubro el 100%.</p></article>
+      <article class="hl"><span class="tag a">Recibo que no es el mío</span><div class="fig num">$41,216</div><p>Las cotizaciones suponen $22,540, $24,679 y $41,216 al año para la misma casa. Mi facturación real de los últimos 12 meses es de $18,360.</p></article>
+      <article class="hl"><span class="tag a">Retornos inconsistentes</span><div class="fig num">3.2 → 7.1</div><p>El retorno de 3.2 años no sale con sus propias cifras: $149,640 ÷ $21,188 da 7.1 años. En las del 29, $218,776 ÷ $23,198 da 9.4, no 5.3.</p></article>
+      <article class="hl"><span class="tag a">Servicio de 1 hilo</span><div class="fig">127 V → 240 V</div><p>Mi servicio es monofásico de 1 hilo y todos los inversores cotizados son de 120/240 V. Ninguna cotización menciona el cambio de servicio ante CFE.</p></article>
+    </div>
+  </section>
+
+  <section class="sec" id="cambio">
+    <div class="sec-head"><h2>Qué cambió entre el 22 y el 29 de septiembre</h2><p>Opción Growatt contra opción Growatt: misma marca, mismas baterías y la misma instalación.</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Concepto</th><th>22 sep</th><th>29 sep</th><th>Observación</th></tr></thead>
+      <tbody>
+        <tr><th>Paneles</th><td>6 × LONGi 610 W</td><td>8 × LONGi 615 W bifacial</td><td>+2 paneles que no solicité</td></tr>
+        <tr><th>Potencia instalada</th><td class="num">3.66 kWp</td><td class="num">4.92 kWp</td><td>104% → 140% de mi consumo</td></tr>
+        <tr><th>Inversor</th><td>SPH 6000 BL-US <span class="x">(descontinuado)</span></td><td>SPH 10000TL-HU-US</td><td>El reemplazo vigente es el mismo en ambos casos</td></tr>
+        <tr><th>Baterías</th><td>2 × AXE 5.0L</td><td>2 × AXE 5.0L</td><td>Sin cambio</td></tr>
+        <tr><th>Recibo anual supuesto</th><td class="num">$22,540</td><td class="num">$41,216</td><td class="x">Real: $18,360</td></tr>
+        <tr><th>Retorno prometido</th><td class="num">3.2 años</td><td class="num">6.0 años</td><td class="x">Con sus cifras: 7.1 y 5.5</td></tr>
+        <tr><th>Subtotal</th><td class="num ok">$129,000</td><td class="num bad">$182,000</td><td class="x">+$53,000 (+41%)</td></tr>
+        <tr><th>Total con IVA</th><td class="num">$149,640</td><td class="num">$211,120</td><td class="x">+$61,480</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec" id="comparativa">
+    <div class="sec-head"><h2>Comparativa de las 5 cotizaciones</h2><p>Todas usan paneles LONGi y la misma plantilla. En rojo, datos que faltan o no coinciden.</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Concepto</th><th>Growatt 22 sep</th><th>Growatt 29 sep</th><th>SolaX</th><th>Sigenergy</th><th>Hoymiles</th></tr></thead>
+      <tbody>
+        <tr><th>Total con IVA</th><td class="num r">$149,640</td><td class="num r">$211,120</td><td class="num r">$214,020</td><td class="num r">$218,776</td><td class="num r">$219,472</td></tr>
+        <tr><th>Paneles</th><td>6 × 610 W</td><td>8 × 615 W</td><td>8 × 615 W</td><td>8 × 615 W</td><td>8 × 615 W</td></tr>
+        <tr><th>Inversor</th><td class="bad">SPH 6000 BL-US · descontinuado · dice 5 kW</td><td>SPH 10000TL-HU-US · 10 kW</td><td class="bad">"Hybrid ESS" · modelo sin especificar</td><td>SigenStor EC · 7.6 kW</td><td>HYS-9.6LV-USG1 · 9.6 kW</td></tr>
+        <tr><th>Batería</th><td>2 × AXE 5.0L · 10 kWh</td><td>2 × AXE 5.0L · 10 kWh</td><td>2 × HV11550 · "5 kw"</td><td class="bad">"Bat 10 kw" · capacidad sin confirmar</td><td class="bad">"PVT-V12" · marca y kWh sin dato</td></tr>
+        <tr><th>$ por Wp</th><td class="num r ok">$40.89</td><td class="num r">$42.91</td><td class="num r">$43.50</td><td class="num r">$44.47</td><td class="num r">$44.61</td></tr>
+        <tr><th>Recibo supuesto</th><td class="num r bad">$22,540</td><td class="num r bad">$41,216</td><td class="num r bad">$41,216</td><td class="num r bad">$24,679</td><td class="num r bad">$24,679</td></tr>
+        <tr><th>Retorno prometido</th><td class="num r">3.2 años</td><td class="num r">6.0</td><td class="num r">6.0</td><td class="num r">5.3</td><td class="num r">5.3</td></tr>
+        <tr><th>Retorno con sus cifras</th><td class="num r bad">7.1</td><td class="num r">5.5</td><td class="num r">5.5</td><td class="num r bad">9.4</td><td class="num r bad">9.5</td></tr>
+        <tr><th>Garantía inversor</th><td>5 años (→10)</td><td>5 años (→10)</td><td>5 años (→10)</td><td>5 años (→10)</td><td>5 años (→10)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Mi recibo: tarifa 01, 4,847 kWh y $18,360 en los últimos 6 bimestres (ago 2025 – ago 2026). Pico de diciembre a febrero: 1,123 kWh.</p>
+  </section>
+
+  <section class="sec" id="observaciones">
+    <div class="sec-head"><h2>Observaciones técnicas en los documentos</h2><p>Errores que aparecen en todas o varias cotizaciones.</p></div>
+    <div class="obs" id="obs"></div>
+  </section>
+
+  <section class="sec" id="preguntas">
+    <div class="sec-head"><h2>Preguntas</h2><p>Les pido respuesta por escrito a cada una, citando el número. Las marcadas en rojo son indispensables para cerrar.</p></div>
+    <div class="qtools">
+      <div class="filters" id="filters" role="group" aria-label="Filtrar preguntas"></div>
+      <button class="btn" id="copy" type="button">Copiar preguntas</button>
+    </div>
+    <div id="qs" style="display:flex;flex-direction:column;gap:10px"></div>
+  </section>
+
+  <section class="sec" id="propuesta">
+    <div class="sec-head"><h2>Lo que estoy dispuesto a firmar</h2><p>Mismo alcance del 22 de septiembre, con el inversor vigente.</p></div>
+    <div class="deal">
+      <div class="box main">
+        <span class="tag g" style="align-self:flex-start;font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:99px">Propuesta</span>
+        <div class="price num">$129,000 <span style="font-size:1rem;font-weight:600">+ IVA</span></div>
+        <ul>
+          <li>6 paneles LONGi 615 W</li>
+          <li>Inversor Growatt SPH 10000TL-HU-US en lugar del SPH 6000 BL-US</li>
+          <li>2 baterías Growatt AXE 5.0L (10 kWh) con base</li>
+          <li>Estructura, material eléctrico, instalación, monitoreo y puesta en marcha</li>
+          <li>Trámite ante CFE, incluido el cambio a 2 hilos si se requiere</li>
+        </ul>
+        <p class="note">El cambio de inversor se debe a la falta de inventario, no a un cambio que yo haya solicitado. Si les genera un costo adicional, lo reviso con el desglose por partida.</p>
+      </div>
+      <div class="box">
+        <h3>Condiciones</h3>
+        <ol>
+          <li>Marca y modelo exactos de cada equipo en el contrato. Sin la cláusula de "sujeto a cambio por disponibilidad".</li>
+          <li>Pagos 30% al firmar, 60% contra entrega de equipos en sitio y 10% con el sistema interconectado y funcionando.</li>
+          <li>Desglose de precio por partida.</li>
+          <li>Garantías de fabricante (paneles, inversor y baterías) por escrito y registradas a mi nombre.</li>
+          <li>Garantía de instalación por escrito, incluyendo filtraciones en losa.</li>
+          <li>Costos extra del levantamiento acordados por escrito antes de iniciar.</li>
+        </ol>
       </div>
     </div>
-    <h1>Resumen de inversión<br>en medios <em>2026</em></h1>
-    <p class="sub">Ejercido real de enero a julio y proyección de agosto a diciembre sobre el Above the Line. Brandssurance se contabiliza por separado como presupuesto adicional.</p>
-    <div class="statebar">
-      <div class="st"><div class="k">Periodo real</div><div class="v cond">Ene – Jul 2026</div></div>
-      <div class="st"><div class="k">Periodo proyectado</div><div class="v cond">Ago – Dic 2026</div></div>
-      <div class="st"><div class="k">Budget AO asignado</div><div class="v cond num">$323.0 M</div></div>
-      <div class="st"><div class="k">Budget Brandssurance</div><div class="v cond num">$62.0 M</div></div>
-    </div>
-  </div>
-</div>
+  </section>
 
-<div class="wrap">
-
-<section id="kpis">
-  <div class="eyebrow"><h2>Cifras del año</h2><span class="note">Pesos mexicanos, sin IVA</span></div>
-  <div class="rule"></div>
-  <div class="kpis">
-    <div class="kpi real"><div class="k">Real Ene – Jul</div><div class="v num" id="k-real">—</div><div class="d">7 meses ejercidos · AO con intercambios</div></div>
-    <div class="kpi proy"><div class="k">Proyectado Ago – Dic</div><div class="v num" id="k-proy">—</div><div class="d">5 meses planeados · AO con intercambios</div></div>
-    <div class="kpi"><div class="k">Total AO 2026</div><div class="v num" id="k-tot">—</div><div class="d"><span id="k-tot-pc">—</span> del budget de $323.0 M</div></div>
-    <div class="kpi extra"><div class="k">+ Brandssurance (extra)</div><div class="v num" id="k-bs">—</div><div class="d">Ago – Dic · presupuesto independiente</div></div>
-  </div>
-  <div class="kpis" style="margin-top:14px">
-    <div class="kpi" style="grid-column:1/-1"><div class="k">Inversión total 2026 — AO + Brandssurance</div><div class="v num" id="k-grand" style="font-size:44px">—</div><div class="d">Suma de ambos presupuestos sobre un total asignado de $385.0 M</div></div>
-  </div>
-</section>
-
-<section id="curva">
-  <div class="eyebrow"><h2>Curva mensual de inversión</h2><span class="note">Barra sólida = real · barra rayada = proyectado</span></div>
-  <div class="rule"></div>
-  <div class="card pad chartbox">
-    <div class="legend">
-      <span class="chip"><span class="dot"></span>AO real</span>
-      <span class="chip p"><span class="dot"></span>AO proyectado</span>
-      <span class="chip b"><span class="dot"></span>Brandssurance (extra)</span>
-    </div>
-    <div id="chart-monthly"></div>
-    <div class="tip" id="tip-m"></div>
-  </div>
-</section>
-
-<section id="mix">
-  <div class="two">
-    <div>
-      <div class="eyebrow"><h2>Mix por medio</h2><span class="note">Año completo, AO</span></div>
-      <div class="rule"></div>
-      <div class="card pad chartbox">
-        <div id="chart-mix"></div>
-        <div class="tip" id="tip-x"></div>
-      </div>
-    </div>
-    <div>
-      <div class="eyebrow"><h2>Avance vs. budget</h2></div>
-      <div class="rule"></div>
-      <div class="card pad">
-        <div class="meters" style="grid-template-columns:1fr">
-          <div class="meter" id="m-ao"></div>
-          <div class="meter" id="m-bs"></div>
-          <div class="meter" id="m-all"></div>
-        </div>
-        <p class="note-box" style="margin-top:20px">La brecha del AO corresponde a los meses de <b>noviembre y diciembre</b>, donde el plan cargado en el archivo aún no distribuye el remanente de digital.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="tabla">
-  <div class="eyebrow"><h2>Detalle por medio y mes</h2><span class="note">Ene–Jul real · Ago–Dic proyectado</span></div>
-  <div class="rule"></div>
-  <div class="tablewrap"><table id="tbl"><thead></thead><tbody></tbody></table></div>
-</section>
-
-<section id="bs">
-  <div class="eyebrow"><h2>Brandssurance — presupuesto adicional</h2><span class="note">Se suma aparte del AO</span></div>
-  <div class="rule"></div>
-  <div class="tablewrap"><table id="tbl-bs"><thead></thead><tbody></tbody></table></div>
-  <p class="note-box" style="margin-top:16px">Cifras proyectadas de agosto a diciembre. Agosto y septiembre ya cuentan con ejercido real de <b id="bs-real">—</b>, incluido dentro de la proyección.</p>
-</section>
-
-<section id="leads">
-  <div class="eyebrow"><h2>Leads objetivo</h2><span class="note">Meta anual 523,000</span></div>
-  <div class="rule"></div>
-  <div class="card pad chartbox">
-    <div class="legend">
-      <span class="chip"><span class="dot"></span>Leads reales</span>
-      <span class="chip p"><span class="dot"></span>Leads meta</span>
-    </div>
-    <div id="chart-leads"></div>
-    <div class="tip" id="tip-l"></div>
-  </div>
-  <p class="note-box" style="margin-top:16px">El archivo solo registra leads reales de <b>enero a marzo</b> (136,755 acumulados contra una meta de 116,297 para ese trimestre, <b>+17.6%</b>). El resto de las barras muestra la meta mensual.</p>
-</section>
-
-<footer>
-  <span>MG Motor México · Resumen de inversión 2026</span>
-  <span>Fuente: Resumen de inversión MG 2026 Total.xlsx — pestañas «Budget 2025» y «Brandssurance»</span>
-</footer>
-</div>
+  <footer>Documento preparado por Luis Fonseca a partir de las cotizaciones de Sunatech del 22 y 29 de septiembre de 2026 y de su recibo CFE (periodo 25 jun – 27 ago 2026, con histórico). Especificaciones de equipo según fichas técnicas públicas de Growatt, SolaX, Sigenergy y Hoymiles.</footer>
+</main>
 
 <script>
 (function(){
-const D = {"months": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"], "medios": [{"name": "OTV", "serie": [0.0, 0.0, 0.0, 0.0, 1850000.0, 0.0, 0.0, 0.0, 2800000.0, 999025.0, 856625.0, 311025.0]}, {"name": "CTV", "serie": [497960.0, 666423.0, 841401.0, 664767.33, 2085468.79, 2617483.21, 1239494.68, 1387500.0, 2992050.5, 1232554.21, 1500000.0, 668942.0]}, {"name": "OOH", "serie": [1457441.02, 826691.02, 787691.02, 787691.0, 6351674.23, 9946530.86, 9439602.22, 3317944.02, 4586397.0, 4131578.44, 3429176.19, 3331776.19]}, {"name": "Radio", "serie": [0.0, 0.0, 0.0, 0.0, 1214414.2, 1913101.0, 219807.97, 100000.0, 0.0, 0.0, 0.0, 0.0]}, {"name": "Especializados", "serie": [0.0, 0.0, 200000.0, 0.0, 370000.0, 637500.0, 35000.0, 0.0, 1000000.0, 1000000.0, 0.0, 0.0]}, {"name": "Digital", "serie": [12443597.75, 13837481.81, 17445969.0, 14823015.29, 13726604.53, 16169087.66, 15407871.3, 22901146.0, 20513738.0, 14221064.74, 802000.0, 270000.0]}], "intercambios": {"name": "Intercambios + Remanente 2024", "serie": [505000.0, 531036.5, 412223.0, 399500.0, 1126747.78, 1048300.0, 1048300.0, 1174233.6, 1232247.78, 1211814.2, 4879158.1, 4243370.0]}, "totalAO": [14398998.77, 15330595.83, 19275061.02, 16275473.62, 25598161.75, 31283702.73, 26341776.16, 27706590.02, 31892185.5, 21584222.38, 6587801.19, 4581743.19], "totalCon": [14903998.77, 15861632.33, 19687284.02, 16674973.62, 26724909.53, 32332002.73, 27390076.16, 28880823.62, 33124433.28, 22796036.58, 11466959.29, 8825113.19], "brands": {"months": ["Ago", "Sep", "Oct", "Nov", "Dic"], "medios": [{"name": "OTV", "serie": [0.0, 96000.0, 4528437.0, 5246204.0, 5246204.0]}, {"name": "CTV", "serie": [0.0, 900000.0, 2110000.0, 3080000.0, 2673971.0]}, {"name": "OOH", "serie": [3200223.0, 5741617.0, 5547854.0, 3815242.0, 3736972.0]}, {"name": "Radio", "serie": [0.0, 0.0, 867141.0, 1750195.0, 1383787.0]}, {"name": "Digital", "serie": [0.0, 2512889.0, 2632507.0, 2730834.0, 2684206.0]}, {"name": "Adserver", "serie": [0.0, 15000.0, 15000.0, 15000.0, 15000.0]}], "total": [3200223.0, 9250506.0, 15685939.0, 16622475.0, 15725140.0], "real": [3200223.0, 9250506.85, 0.0, 0.0, 0.0]}, "leads": {"plan": [37335.0, 37030.0, 41932.0, 38022.0, 39488.0, 40756.0, 48906.0, 52141.0, 55993.0, 50769.0, 45102.0, 35526.0], "real": [50433.0, 38241.0, 48081.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}, "budget": {"base": 290000000.0, "adicional": 33000000.0, "brands": 62000000.0}};
-const RSPLIT = 7;
-const fmtM = n => "$" + (n/1e6).toLocaleString('es-MX',{minimumFractionDigits:1,maximumFractionDigits:1}) + " M";
-const fmt0 = n => n.toLocaleString('es-MX',{maximumFractionDigits:0});
-const fmtC = n => "$" + n.toLocaleString('es-MX',{maximumFractionDigits:0});
-const pc = (a,b) => (100*a/b).toLocaleString('es-MX',{maximumFractionDigits:1}) + "%";
-const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const obs=[
+  ["\"Potencia nominal del inversor\": 3.66 kW y 4.92 kW","Es la potencia de los paneles, no la del inversor. Los inversores cotizados son de 6, 7.6, 9.6 y 10 kW."],
+  ["SPH 6000 BL-US \"potencia 5 kW\"","Según su ficha técnica entrega 6 kW a la red y solo 3 kW desde la batería."],
+  ["\"Tamaño del sistema\": 3.50 kWp y 5.00 kWp","6 × 610 W = 3.66 kWp y 8 × 615 W = 4.92 kWp."],
+  ["Baterías de \"5 kw\" y \"10 kw\"","La capacidad se mide en kWh. En Sigenergy y Hoymiles no se sabe cuánta energía almacenan."],
+  ["Insolación local de 5.8 kWh/m²","Es un valor alto para el Valle de México. Necesito la fuente y la generación estimada mes por mes."],
+  ["Ahorro de 94% en todas las cotizaciones","Se aplica el mismo porcentaje sin importar tamaño ni equipo. El recibo mínimo y el alumbrado público se siguen pagando."],
+  ["Mismo resumen técnico en las 4 cotizaciones del 29","Solo cambia la marca. El resumen no refleja el inversor ni la batería cotizados."]
+];
+document.getElementById("obs").innerHTML=obs.map(o=>`<div class="ob"><div class="said"><small>Dice la cotización</small><b>${o[0]}</b></div><div class="real"><small>Observación</small>${o[1]}</div></div>`).join("");
 
-const sum = a => a.reduce((x,y)=>x+y,0);
-const aoReal = sum(D.totalCon.slice(0,RSPLIT));
-const aoProy = sum(D.totalCon.slice(RSPLIT));
-const aoTot  = aoReal + aoProy;
-const bsTot  = sum(D.brands.total);
-const bsReal = sum(D.brands.real);
-const grand  = aoTot + bsTot;
-const BUD_AO = D.budget.base + D.budget.adicional;
-const BUD_BS = D.budget.brands;
-
-document.getElementById('k-real').textContent = fmtM(aoReal);
-document.getElementById('k-proy').textContent = fmtM(aoProy);
-document.getElementById('k-tot').textContent  = fmtM(aoTot);
-document.getElementById('k-tot-pc').textContent = pc(aoTot,BUD_AO);
-document.getElementById('k-bs').textContent   = fmtM(bsTot);
-document.getElementById('k-grand').textContent= fmtM(grand);
-document.getElementById('bs-real').textContent= fmtC(bsReal);
-
-/* ── meters ── */
-function meter(el,name,real,proy,budget,cls){
-  const t=real+proy, r=Math.min(100,100*real/budget), p=Math.min(100-r,100*proy/budget);
-  el.innerHTML = '<div class="top"><span class="nm">'+name+'</span><span class="pc num">'+pc(t,budget)+'</span></div>'+
-    '<div class="track"><i class="'+cls[0]+'" style="width:'+r.toFixed(2)+'%"></i><i class="'+cls[1]+'" style="width:'+p.toFixed(2)+'%"></i></div>'+
-    '<div class="foot"><span class="num">'+fmtM(t)+' aplicados</span><span class="num">Budget '+fmtM(budget)+'</span></div>';
-}
-meter(document.getElementById('m-ao'),'Above the line',aoReal,aoProy,BUD_AO,['r','p']);
-meter(document.getElementById('m-bs'),'Brandssurance',bsReal,bsTot-bsReal,BUD_BS,['b','bp']);
-meter(document.getElementById('m-all'),'Total 2026',aoReal+bsReal,aoProy+bsTot-bsReal,BUD_AO+BUD_BS,['r','p']);
-
-/* ── tooltip helper ── */
-function bindTip(box,tipEl){
-  return {
-    show(html,x,y){ tipEl.innerHTML=html; tipEl.style.opacity=1;
-      const b=box.getBoundingClientRect(), w=tipEl.offsetWidth;
-      let left=x-w/2; left=Math.max(6,Math.min(b.width-w-6,left));
-      tipEl.style.left=left+'px'; tipEl.style.top=(y-tipEl.offsetHeight-14)+'px'; },
-    hide(){ tipEl.style.opacity=0; }
-  };
-}
-
-/* ── monthly chart ── */
-const bsByMonth = D.months.map((m,i)=> i>=RSPLIT ? D.brands.total[i-RSPLIT] : 0);
-function drawMonthly(){
-  const host=document.getElementById('chart-monthly');
-  const W=1100,H=380,PL=64,PR=16,PT=22,PB=44;
-  const iw=W-PL-PR, ih=H-PT-PB;
-  const max = Math.max(...D.months.map((m,i)=>D.totalCon[i]+bsByMonth[i]));
-  const top = Math.ceil(max/5e6)*5e6;
-  const y = v => PT+ih - (v/top)*ih;
-  const bw = iw/12, bar = Math.min(52, bw*0.56);
-  const RED=css('--mg-red'), BS=css('--bs'), GRID=css('--grid'), INK3=css('--ink-3'), INK2=css('--ink-2'), SURF=css('--surface');
-  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Inversión mensual 2026">';
-  s+='<defs><pattern id="hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">'+
-     '<rect width="6" height="6" fill="'+css('--mg-red-soft')+'"/><rect width="3" height="6" fill="'+RED+'"/></pattern></defs>';
-  for(let g=0;g<=5;g++){ const v=top*g/5;
-    s+='<line x1="'+PL+'" x2="'+(W-PR)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="'+GRID+'" stroke-width="1"/>';
-    s+='<text x="'+(PL-10)+'" y="'+(y(v)+4)+'" text-anchor="end" font-size="12" fill="'+INK3+'" font-family="Barlow">'+(v/1e6).toFixed(0)+' M</text>';
-  }
-  D.months.forEach((m,i)=>{
-    const cx=PL+bw*i+bw/2, x=cx-bar/2;
-    const ao=D.totalCon[i], bs=bsByMonth[i];
-    const hAO=(ao/top)*ih, hBS=(bs/top)*ih;
-    const proj = i>=RSPLIT;
-    const yAO = PT+ih-hAO;
-    s+='<rect class="hit" data-i="'+i+'" x="'+(cx-bw/2)+'" y="'+PT+'" width="'+bw+'" height="'+ih+'" fill="transparent"/>';
-    s+='<rect x="'+x+'" y="'+yAO+'" width="'+bar+'" height="'+hAO+'" rx="3" fill="'+(proj?'url(#hatch)':RED)+'"'+(proj?' stroke="'+RED+'" stroke-width="1"':'')+' pointer-events="none"/>';
-    if(bs>0){ const yBS=yAO-hBS-2;
-      s+='<rect x="'+x+'" y="'+yBS+'" width="'+bar+'" height="'+hBS+'" rx="3" fill="'+BS+'" opacity=".9" pointer-events="none"/>'; }
-    s+='<text x="'+cx+'" y="'+(H-PB+20)+'" text-anchor="middle" font-size="13" fill="'+(proj?INK3:INK2)+'" font-family="Barlow Condensed" letter-spacing="1.2" font-weight="600">'+m.toUpperCase()+'</text>';
+const Q=[
+ ["Precio y alcance",[
+  [1,"¿Por qué la opción Growatt pasó de $129,000 a $182,000 + IVA en una semana si mi consumo no cambió?","Diferencia de $53,000 + IVA por 2 paneles y un inversor más grande."],
+  [1,"¿Quién decidió pasar de 6 a 8 paneles?","Con 6 paneles la generación cubre mi consumo anual de 4,847 kWh."],
+  [1,"¿Respetan $129,000 + IVA con el SPH 10000TL-HU-US en lugar del SPH 6000 BL-US descontinuado?","El cambio de inversor es por falta de inventario."],
+  [1,"¿Me pueden entregar el desglose de precio por partida?","Paneles, inversor, baterías, estructura, material eléctrico, instalación, trámite y monitoreo."]
+ ]],
+ ["Equipo",[
+  [0,"¿Confirman que el SPH 6000 BL-US está descontinuado? ¿Por qué se describe como de 5 kW?","Su ficha indica 6 kW de salida y 3 kW desde la batería."],
+  [0,"¿Cuál es la capacidad exacta en kWh y el modelo completo de cada batería cotizada?","Sigenergy \"Bat 10\", Hoymiles \"PVT-V12\" y SolaX \"HV11550 5 kw\"."],
+  [0,"¿Cuál es el modelo exacto del inversor SolaX \"Hybrid ESS\"?",""],
+  [0,"¿Dónde se instalarán las baterías?","Son IP20 (solo interior) y pesan 48 kg cada una."],
+  [0,"¿Qué circuitos quedan respaldados cuando se va la luz y por cuántas horas?",""]
+ ]],
+ ["Instalación y CFE",[
+  [1,"Mi servicio es de 1 hilo (127 V) y los inversores son de 120/240 V. ¿Hay que cambiar a 2 hilos? ¿Quién lo tramita y lo paga?","Ninguna cotización lo menciona."],
+  [0,"¿Cuánto tarda el trámite del medidor bidireccional y quién da seguimiento?",""],
+  [0,"¿Qué costos extra podrían surgir del levantamiento (cláusula g)?","Quiero conocerlos antes de firmar."]
+ ]],
+ ["Cálculos",[
+  [1,"¿De dónde salen los recibos de $22,540, $24,679 y $41,216 al año?","Mi facturación real de los últimos 12 meses es de $18,360."],
+  [0,"¿Cómo calculan el retorno de 3.2, 5.3 y 6.0 años?","Con sus propias cifras sale 7.1, 9.4 y 5.5 años."],
+  [0,"¿De qué fuente es la insolación de 5.8 kWh/m²? ¿Me comparten la generación mes por mes?",""]
+ ]],
+ ["Garantías",[
+  [1,"¿Me entregan por escrito la garantía de fabricante de LONGi (producto y rendimiento lineal)?","La cotización dice 10 años; LONGi suele ofrecer más."],
+  [1,"¿Qué garantía dan sobre la instalación, incluidas filtraciones en losa? ¿Por cuántos años?","No aparece en ninguna cotización."],
+  [0,"¿Quién registra el inversor y las baterías con Growatt para validar la garantía?",""],
+  [0,"¿Cuánto cuesta ampliar la garantía del inversor a 10 años?",""]
+ ]],
+ ["Condiciones de pago y contrato",[
+  [1,"¿Aceptan pagos 30/60/10 en lugar de 70% de anticipo?",""],
+  [1,"¿Aceptan fijar marca y modelo en el contrato y eliminar la cláusula f?","\"Inversor y módulos sujetos a cambios por disponibilidad\"."],
+  [0,"Si el cliente debe verificar el funcionamiento (cláusula e), ¿qué monitoreo y soporte postventa ofrecen?",""]
+ ]]
+];
+let filter="Todas";
+const cats=["Todas","Indispensables",...Q.map(g=>g[0])];
+const fEl=document.getElementById("filters"), qEl=document.getElementById("qs");
+function render(){
+  fEl.innerHTML=cats.map(c=>`<button type="button" class="chip" aria-pressed="${c===filter}" data-c="${c}">${c}</button>`).join("");
+  let n=0, html="";
+  Q.forEach(([cat,items])=>{
+    const rows=items.map(it=>({it,num:++n})).filter(({it})=>filter==="Todas"||filter===cat||(filter==="Indispensables"&&it[0]));
+    if(!rows.length) return;
+    html+=`<div class="qgroup"><h3>${cat}</h3>${rows.map(({it,num})=>`<div class="q ${it[0]?"prio":""}"><span class="n">P${String(num).padStart(2,"0")}</span><div><p>${it[1]}</p>${it[2]?`<div class="why">${it[2]}</div>`:""}</div></div>`).join("")}</div>`;
   });
-  s+='<line x1="'+PL+'" x2="'+(W-PR)+'" y1="'+(PT+ih)+'" y2="'+(PT+ih)+'" stroke="'+css('--line-strong')+'"/>';
-  const xsplit=PL+bw*RSPLIT;
-  s+='<line x1="'+xsplit+'" x2="'+xsplit+'" y1="'+PT+'" y2="'+(PT+ih+8)+'" stroke="'+css('--line-strong')+'" stroke-dasharray="3 4"/>';
-  s+='<text x="'+(xsplit+7)+'" y="'+(PT+12)+'" font-size="10.5" fill="'+INK3+'" font-family="Barlow" letter-spacing="1.6">PROYECTADO →</text>';
-  s+='</svg>';
-  host.innerHTML=s;
-  const tip=bindTip(host.parentElement,document.getElementById('tip-m'));
-  host.querySelectorAll('.hit').forEach(r=>{
-    r.addEventListener('mouseenter',e=>{
-      const i=+r.dataset.i, ao=D.totalCon[i], bs=bsByMonth[i];
-      let h='<div class="th">'+D.months[i]+' 2026</div>'+
-        '<div class="r"><span>AO '+(i>=RSPLIT?'proyectado':'real')+'</span><span>'+fmtC(ao)+'</span></div>';
-      if(bs>0) h+='<div class="r"><span>Brandssurance</span><span>'+fmtC(bs)+'</span></div>'+
-        '<div class="r mut"><span>Total mes</span><span>'+fmtC(ao+bs)+'</span></div>';
-      const bb=r.getBoundingClientRect(), pb=host.parentElement.getBoundingClientRect();
-      tip.show(h, bb.left-pb.left+bb.width/2, bb.top-pb.top+120);
-    });
-    r.addEventListener('mouseleave',tip.hide);
-  });
+  qEl.innerHTML=html;
 }
-
-/* ── mix chart (sequential, single hue by magnitude) ── */
-function drawMix(){
-  const host=document.getElementById('chart-mix');
-  const rows=D.medios.map(m=>({name:m.name,real:sum(m.serie.slice(0,RSPLIT)),proy:sum(m.serie.slice(RSPLIT)),tot:sum(m.serie)}))
-    .concat([{name:D.intercambios.name,real:sum(D.intercambios.serie.slice(0,RSPLIT)),proy:sum(D.intercambios.serie.slice(RSPLIT)),tot:sum(D.intercambios.serie)}])
-    .filter(r=>r.tot>0).sort((a,b)=>b.tot-a.tot);
-  const W=560, rowH=44, PT=8, PL=138, PR=90;
-  const H=PT+rows.length*rowH+6, iw=W-PL-PR;
-  const max=Math.max(...rows.map(r=>r.tot));
-  const RED=css('--mg-red'), INK=css('--ink'), INK3=css('--ink-3');
-  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Mix de inversión por medio">';
-  s+='<defs><pattern id="hatch2" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">'+
-     '<rect width="6" height="6" fill="'+css('--mg-red-soft')+'"/><rect width="3" height="6" fill="'+RED+'"/></pattern></defs>';
-  rows.forEach((r,i)=>{
-    const yy=PT+i*rowH+8, h=20;
-    const wr=(r.real/max)*iw, wp=(r.proy/max)*iw;
-    s+='<rect class="hitx" data-i="'+i+'" x="0" y="'+(yy-8)+'" width="'+W+'" height="'+rowH+'" fill="transparent"/>';
-    s+='<text x="'+(PL-12)+'" y="'+(yy+14)+'" text-anchor="end" font-size="13" fill="'+INK+'" font-family="Barlow" font-weight="500">'+r.name.replace(' + Remanente 2024','')+'</text>';
-    if(wr>0) s+='<rect x="'+PL+'" y="'+yy+'" width="'+wr+'" height="'+h+'" rx="3" fill="'+RED+'" pointer-events="none"/>';
-    if(wp>0) s+='<rect x="'+(PL+wr+(wr>0?2:0))+'" y="'+yy+'" width="'+Math.max(0,wp-(wr>0?2:0))+'" height="'+h+'" rx="3" fill="url(#hatch2)" stroke="'+RED+'" stroke-width="1" pointer-events="none"/>';
-    s+='<text x="'+(PL+wr+wp+10)+'" y="'+(yy+14)+'" font-size="12.5" fill="'+INK3+'" font-family="Barlow" font-weight="600">'+(r.tot/1e6).toFixed(1)+' M</text>';
-  });
-  s+='</svg>'; host.innerHTML=s;
-  const tot=sum(rows.map(r=>r.tot));
-  const tip=bindTip(host.parentElement,document.getElementById('tip-x'));
-  host.querySelectorAll('.hitx').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{
-      const r=rows[+el.dataset.i];
-      const h='<div class="th">'+r.name+'</div>'+
-        '<div class="r"><span>Real Ene–Jul</span><span>'+fmtC(r.real)+'</span></div>'+
-        '<div class="r"><span>Proy. Ago–Dic</span><span>'+fmtC(r.proy)+'</span></div>'+
-        '<div class="r mut"><span>Total · '+pc(r.tot,tot)+'</span><span>'+fmtC(r.tot)+'</span></div>';
-      const bb=el.getBoundingClientRect(), pb=host.parentElement.getBoundingClientRect();
-      tip.show(h, bb.left-pb.left+bb.width/2, bb.top-pb.top+34);
-    });
-    el.addEventListener('mouseleave',tip.hide);
-  });
-}
-
-/* ── leads chart ── */
-function drawLeads(){
-  const host=document.getElementById('chart-leads');
-  const W=1100,H=230,PL=64,PR=16,PT=18,PB=40, iw=W-PL-PR, ih=H-PT-PB;
-  const max=Math.max(...D.leads.plan,...D.leads.real);
-  const top=Math.ceil(max/10000)*10000;
-  const y=v=>PT+ih-(v/top)*ih, bw=iw/12, bar=Math.min(40,bw*0.42);
-  const RED=css('--mg-red'), GRID=css('--grid'), INK3=css('--ink-3'), INK2=css('--ink-2');
-  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Leads meta contra reales">';
-  s+='<defs><pattern id="hatch3" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">'+
-     '<rect width="6" height="6" fill="'+css('--mg-red-soft')+'"/><rect width="3" height="6" fill="'+RED+'"/></pattern></defs>';
-  for(let g=0;g<=4;g++){const v=top*g/4;
-    s+='<line x1="'+PL+'" x2="'+(W-PR)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="'+GRID+'"/>';
-    s+='<text x="'+(PL-10)+'" y="'+(y(v)+4)+'" text-anchor="end" font-size="12" fill="'+INK3+'" font-family="Barlow">'+(v/1000)+'k</text>';}
-  D.months.forEach((m,i)=>{
-    const cx=PL+bw*i+bw/2, p=D.leads.plan[i], r=D.leads.real[i];
-    const xp=cx-(r>0?bar+2:bar/2), xr=cx+2;
-    s+='<rect class="hitl" data-i="'+i+'" x="'+(cx-bw/2)+'" y="'+PT+'" width="'+bw+'" height="'+ih+'" fill="transparent"/>';
-    s+='<rect x="'+(r>0?xp:cx-bar/2)+'" y="'+y(p)+'" width="'+bar+'" height="'+(PT+ih-y(p))+'" rx="3" fill="url(#hatch3)" stroke="'+RED+'" stroke-width="1" pointer-events="none"/>';
-    if(r>0) s+='<rect x="'+xr+'" y="'+y(r)+'" width="'+bar+'" height="'+(PT+ih-y(r))+'" rx="3" fill="'+RED+'" pointer-events="none"/>';
-    s+='<text x="'+cx+'" y="'+(H-PB+20)+'" text-anchor="middle" font-size="13" fill="'+INK2+'" font-family="Barlow Condensed" letter-spacing="1.2" font-weight="600">'+m.toUpperCase()+'</text>';
-  });
-  s+='<line x1="'+PL+'" x2="'+(W-PR)+'" y1="'+(PT+ih)+'" y2="'+(PT+ih)+'" stroke="'+css('--line-strong')+'"/></svg>';
-  host.innerHTML=s;
-  const tip=bindTip(host.parentElement,document.getElementById('tip-l'));
-  host.querySelectorAll('.hitl').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{
-      const i=+el.dataset.i, p=D.leads.plan[i], r=D.leads.real[i];
-      let h='<div class="th">'+D.months[i]+'</div><div class="r"><span>Meta</span><span>'+fmt0(p)+'</span></div>';
-      h += r>0 ? '<div class="r"><span>Real</span><span>'+fmt0(r)+'</span></div><div class="r mut"><span>Cumplimiento</span><span>'+pc(r,p)+'</span></div>'
-               : '<div class="r mut"><span>Real</span><span>sin registro</span></div>';
-      const bb=el.getBoundingClientRect(), pb=host.parentElement.getBoundingClientRect();
-      tip.show(h, bb.left-pb.left+bb.width/2, bb.top-pb.top+90);
-    });
-    el.addEventListener('mouseleave',tip.hide);
-  });
-}
-
-/* ── main table ── */
-function drawTable(){
-  const th=document.querySelector('#tbl thead'), tb=document.querySelector('#tbl tbody');
-  let h='<tr class="grp"><th class="lbl"></th>'+
-    '<th class="r" colspan="7">Real Ene – Jul</th>'+
-    '<th class="p" colspan="5">Proyectado Ago – Dic</th>'+
-    '<th colspan="3"></th></tr><tr><th class="lbl">Medio</th>';
-  D.months.forEach((m,i)=>{ h+='<th'+(i===RSPLIT?' class="divcol"':'')+'>'+m+'</th>'; });
-  h+='<th class="divcol">Real</th><th>Proy.</th><th>Total</th></tr>';
-  th.innerHTML=h;
-
-  const rows=D.medios.map(m=>({name:m.name,serie:m.serie}));
-  const cell=(v,i)=> '<td class="num'+(i>=RSPLIT?' proj':'')+(v===0?' zero':'')+(i===RSPLIT?' divcol':'')+'">'+(v===0?'—':fmt0(v))+'</td>';
-  const line=(r,cls)=>{
-    const R=sum(r.serie.slice(0,RSPLIT)), P=sum(r.serie.slice(RSPLIT));
-    let s='<tr'+(cls?' class="'+cls+'"':'')+'><td class="lbl">'+r.name+'</td>';
-    r.serie.forEach((v,i)=>s+=cell(v,i));
-    s+='<td class="num divcol">'+fmt0(R)+'</td><td class="num">'+fmt0(P)+'</td><td class="num">'+fmt0(R+P)+'</td></tr>';
-    return s;
-  };
-  let b='';
-  rows.filter(r=>sum(r.serie)>0).forEach(r=>b+=line(r));
-  b+=line({name:'Total Above the Line',serie:D.totalAO},'sum');
-  b+=line(D.intercambios);
-  b+=line({name:'Total AO + intercambios',serie:D.totalCon},'sum');
-  const bsSerie=D.months.map((m,i)=> i>=RSPLIT?D.brands.total[i-RSPLIT]:0);
-  b+=line({name:'Brandssurance (extra)',serie:bsSerie},'extra');
-  b+=line({name:'INVERSIÓN TOTAL 2026',serie:D.totalCon.map((v,i)=>v+bsSerie[i])},'grand');
-  tb.innerHTML=b;
-}
-
-/* ── brandssurance table ── */
-function drawBS(){
-  const th=document.querySelector('#tbl-bs thead'), tb=document.querySelector('#tbl-bs tbody');
-  let h='<tr><th class="lbl">Medio</th>';
-  D.brands.months.forEach(m=>h+='<th>'+m+'</th>');
-  th.innerHTML=h+'<th class="divcol">Total</th></tr>';
-  let b='';
-  D.brands.medios.forEach(m=>{
-    b+='<tr><td class="lbl">'+m.name+'</td>'+m.serie.map(v=>'<td class="num proj'+(v===0?' zero':'')+'">'+(v===0?'—':fmt0(v))+'</td>').join('')+
-       '<td class="num divcol">'+fmt0(sum(m.serie))+'</td></tr>';
-  });
-  b+='<tr class="extra"><td class="lbl">Total Brandssurance</td>'+D.brands.total.map(v=>'<td class="num">'+fmt0(v)+'</td>').join('')+
-     '<td class="num divcol">'+fmt0(sum(D.brands.total))+'</td></tr>';
-  tb.innerHTML=b;
-}
-
-function all(){ drawMonthly(); drawMix(); drawLeads(); }
-drawTable(); drawBS(); all();
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change',all);
-new MutationObserver(all).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-let t; addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(all,150);});
+fEl.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;filter=b.dataset.c;render();});
+render();
+const btn=document.getElementById("copy");
+btn.addEventListener("click",()=>{
+  let n=0; const txt=Q.map(([cat,items])=>cat.toUpperCase()+"\n"+items.map(it=>`P${String(++n).padStart(2,"0")}. ${it[1]}`).join("\n")).join("\n\n");
+  const ok=()=>{btn.textContent="Copiadas";setTimeout(()=>btn.textContent="Copiar preguntas",1800)};
+  const fb=()=>{const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok();}catch(e){btn.textContent="No se pudo copiar";}ta.remove();};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok).catch(fb);}else fb();
+});
 })();
-
 </script>
+
+</body>
+</html>
